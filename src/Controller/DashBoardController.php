@@ -25,7 +25,7 @@ class DashBoardController extends AbstractController
         $company = $user->getCompany();
         $theme = $user ? $user->getTheme() : 'original';
 
-        return $this->render('backoffice/base.html.twig', [
+        return $this->render('backoffice/dashboard.html.twig', [
             'company' => $company,
             'theme' => $theme,
         ]);
@@ -37,9 +37,11 @@ class DashBoardController extends AbstractController
         $user = $this->getUser();
         $company = $user->getCompany();
         $clients = $company->getClients();
+        $theme = $user ? $user->getTheme() : 'original';
 
         return $this->render('backoffice/clients/index.html.twig', [
             'clients' => $clients,
+            'theme' => $theme,
         ]);
     }
 
@@ -49,6 +51,7 @@ class DashBoardController extends AbstractController
     {
         $user = $this->getUser();
         $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
 
         $client = new Clients();
         $form = $this->createForm(ClientsFormType::class, $client);
@@ -64,6 +67,7 @@ class DashBoardController extends AbstractController
 
         return $this->render('backoffice/clients/create.html.twig', [
             'clientForm' => $form->createView(),
+            'theme' => $theme,
         ]);
     }
 

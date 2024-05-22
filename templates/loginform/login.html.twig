@@ -3,52 +3,81 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+<div class="h-screen">
+
     <!-- start: Sidebar -->
-        <div class="fixed left-0 top-0 w-1/4 h-full bg-white p-4 z-50 sidebar-menu transition-transform"></div>
-        <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+    <div class="fixed left-0 top-0 w-1/4 h-full bg-white p-4 z-50 sidebar-menu transition-transform">
+        <a href="/">
+            <h2 class="text-orange-500 text-5xl font-bold my-10 text-center">GymVoice</h2>
+        </a>  
+        <p class="text-center mx-10">Votre web app qui vous permet de gérer vos facture de manière simple </p>
+
+        <div class="mt-28 text-center">
+            <p class="py-2 font-bold text-xl"><i class="fa-solid fa-play mr-6"></i> Suivre vos factures</p>
+            <p class="py-2 font-bold text-xl"><i class="fa-solid fa-play mr-6"></i> Générer des devis PDF</p>
+            <p class="py-2 font-bold text-xl"><i class="fa-solid fa-play mr-6"></i> Archivez vos clients</p>
+        </div>
+
+        <ul class="relative flex justify-center items-center gap-6 mt-36">
+            <li>
+                <a href="#" alt="Tw" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-github m-auto"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" alt="Fb" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-linkedin m-auto"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" alt="GG" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-instagram m-auto"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" alt="In" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-twitter m-auto"></i>
+                </a>
+            </li>
+        </ul>
+
+
+        <div class="fixed bottom-0 left-0 flex flex-col items-start">
+            <div class="relative">
+                <div class="bg-black w-24 h-24 relative mb-4 ml-4"></div>
+                <div class="bg-orange-500 w-[150px] h-[150px] rounded-tr-full mb-12 ml-6 absolute -top-16 left-0"></div>
+            </div>
+        </div>
+    </div>
     <!-- end: Sidebar -->
 
 
-
-<div class="bg-cover bg-center h-screen" style="background-image: url('{{ asset('images/muscu.jpg') }}');">
-    <div class="min-h-screen flex items-center justify-center">
-        <div class="w-full max-w-md p-8">
-            <form method="post">
+    <div class="ml-1/4 w-3/4 min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{ asset('images/muscu.jpg') }}');">
+        <div class="w-full max-w-md p-8 bg-opacity-75 bg-gray-800 rounded">
+            <form method="post" class="space-y-6">
                 {% if error %}
                     <div class="bg-red-500 text-white p-3 rounded mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
                 {% if app.user %}
-                    <div class="mb-3">
-                        Vous êtes connecté en tant que : {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <div class="mb-3 text-white">
+                        Vous êtes connecté en tant que : {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}" class="underline">Se déconnecter</a>
                     </div>
                 {% endif %}
 
                 <h1 class="text-xl mb-6 font-bold text-white text-center">Connectez-vous</h1>
-                <input type="email" name="_username" id="username" class="w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4" required autofocus">
+                <input type="email" name="_username" id="username" class="w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4" required autofocus>
                 <input type="password" name="_password" id="password" class="w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4" autocomplete="current-password" required>
 
-                <input type="hidden" name="_csrf_token"
-                    value="{{ csrf_token('authenticate') }}"
-                >
-
-                {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
-                        </label>
-                    </div>
-                #}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                 <button class="w-full h-14 rounded bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4" type="submit">
                     Se connecter
                 </button>
             </form>
-            <p class="text-center text-white">Pas encore membre ? <a href="/register">créer un compte</a></p>
+            <p class="text-center text-white mt-6">Pas encore membre ? <a href="/register" class="underline">créer un compte</a></p>
         </div>
     </div>
+
 </div>
 {% endblock %}

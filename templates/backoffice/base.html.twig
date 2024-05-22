@@ -17,98 +17,62 @@
     </head>
     <body class="h-full">
             <!-- start: Sidebar -->
-            <div class="fixed left-0 top-0 w-64 h-full {% if theme == 'blue' %}bg-blue-600{% elseif theme == 'green' %}bg-green-600{% else %}bg-primary-600{% endif %} p-4 z-50 sidebar-menu transition-transform">
+            <div class="fixed left-0 top-0 w-64 h-full {% if theme == 'blue' %}bg-purple-600{% elseif theme == 'green' %}bg-blue-600{% else %}bg-primary-600{% endif %} p-4 z-50 sidebar-menu transition-transform">
                 <a href="#" class="flex items-center pb-4 border-b border-b-slate-200">
                     <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover">
                     <span class="text-lg font-bold text-white ml-3">Gym-voice</span>
                 </a>
                 <ul class=" flex flex-col mt-4 h-full">
                     <li class="mb-1 group active">
-                        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-gray-100 rounded-md group-[.active]:bg-primary-500 group-[.active]:text-white group-[.selected]:bg-primary-400 group-[.selected]:text-gray-100">
+                        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-[.active]:bg-blue-500 group-[.selected]:bg-blue-400{% elseif theme == 'green' %}hover:bg-green-500 group-[.active]:bg-green-500 group-[.selected]:bg-green-400{% else %}hover:bg-primary-500 group-[.active]:bg-primary-500 group-[.selected]:bg-primary-400{% endif %}  hover:text-gray-100 rounded-md group-[.active]:text-white group-[.selected]:text-gray-100">
                             <i class="ri-home-2-line mr-3 text-lg"></i>
                             <span class="text-sm">Dashboard</span>
                         </a>
                     </li>
                     <li class="mb-1 group relative">
-                        <a href="/dashboard/clients" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-white rounded-md group-hover:bg-primary-800 focus:bg-primary-800 cursor-pointer">
+                        <a href="/dashboard/clients" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-hover:bg-blue-800 focus:bg-blue-800{% elseif theme == 'green' %}hover:bg-green-500 group-hover:bg-green-800 focus:bg-green-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-white rounded-md cursor-pointer">
                             <i class="ri-file-user-line mr-3 text-lg"></i>
                             <span class="text-sm">Clients</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
-                        <!-- <ul class="hidden absolute left-full top-0 w-48 bg-white shadow-lg rounded-md mt-1 group-focus:block">
-                            <li class="mb-4">
-                                <a href="#" class="block text-gray-800 text-sm p-2 hover:bg-gray-100">Active order</a>
-                            </li> 
-                            <li class="mb-4">
-                                <a href="#" class="block text-gray-800 text-sm p-2 hover:bg-gray-100">Completed order</a>
-                            </li> 
-                            <li class="mb-4">
-                                <a href="#" class="block text-gray-800 text-sm p-2 hover:bg-gray-100">Canceled order</a>
-                            </li> 
-                        </ul> -->
                     </li>        
                     <li class="mb-1 group">
-                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-gray-100 rounded-md group-hover:bg-primary-800 focus:bg-primary-800 cursor-pointer">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-hover:bg-blue-800 focus:bg-blue-800{% elseif theme == 'green' %}hover:bg-green-500 group-hover:bg-green-800 focus:bg-green-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="ri-price-tag-3-line mr-3 text-lg"></i>
                             <span class="text-sm">Produits</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
-                        <!-- <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-                            <li class="mb-4">
-                                <a href="#" class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Manage services</a>
-                            </li>
-                        </ul> -->
                     </li>
                     <li class="mb-1 group">
-                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-gray-100 rounded-md group-hover:bg-primary-800 focus:bg-primary-800 cursor-pointer">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-hover:bg-blue-800 focus:bg-blue-800{% elseif theme == 'green' %}hover:bg-green-500 group-hover:bg-green-800 focus:bg-green-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="fa-solid fa-boxes-stacked mr-3 text-lg"></i>
                             <span class="text-sm">Catégories</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
-                        <!-- <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-                            <li class="mb-4">
-                                <a href="#" class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Manage services</a>
-                            </li>
-                        </ul> -->
                     </li>
                     <li class="mb-1 group">
-                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-gray-100 rounded-md  group-hover:bg-primary-800 focus:bg-primary-800 cursor-pointer">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-hover:bg-blue-800 focus:bg-blue-800{% elseif theme == 'green' %}hover:bg-green-500 group-hover:bg-green-800 focus:bg-green-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
                             <span class="text-sm">Factures</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
-                        <!-- <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-                            <li class="mb-4">
-                                <a href="#" class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Manage services</a>
-                            </li>
-                        </ul> -->
                     </li>
                     <li class="mb-1 group">
-                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-gray-100 rounded-md  group-hover:bg-primary-800 focus:bg-primary-800 cursor-pointer">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-hover:bg-blue-800 focus:bg-blue-800{% elseif theme == 'green' %}hover:bg-green-500 group-hover:bg-green-800 focus:bg-green-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
                             <span class="text-sm">Rapport</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
-                        <!-- <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-                            <li class="mb-4">
-                                <a href="#" class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Manage services</a>
-                            </li>
-                        </ul> -->
                     </li>
                     <li class="mb-1 group">
-                        <a href="/dashboard/components" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-gray-100 rounded-md  group-hover:bg-primary-800 focus:bg-primary-800 cursor-pointer">
+                        <a href="/dashboard/components" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-hover:bg-blue-800 focus:bg-blue-800{% elseif theme == 'green' %}hover:bg-green-500 group-hover:bg-green-800 focus:bg-green-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="fa-solid fa-code mr-3 text-lg"></i>
                             <span class="text-sm">Composants</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
-                        <!-- <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-                            <li class="mb-4">
-                                <a href="#" class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Manage services</a>
-                            </li>
-                        </ul> -->
                     </li>
                     <li class="mb-18 group">
-                        <a href="/dashboard/settings" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary-500 hover:text-gray-100 rounded-md  group-hover:bg-primary-800 focus:bg-primary-800 cursor-pointer">
+                        <a href="/dashboard/settings" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'blue' %}hover:bg-blue-500 group-hover:bg-blue-800 focus:bg-blue-800{% elseif theme == 'green' %}hover:bg-green-500 group-hover:bg-green-800 focus:bg-green-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="ri-settings-2-line mr-3 text-lg"></i>
                             <span class="text-sm">Settings</span>
                         </a>
@@ -141,7 +105,7 @@
                     </ul>
                     <ul class="ml-auto flex items-center">
                         <li class="ml-3">
-                            <button id="theme-toggle" class="p-2 bg-gray-200 dark:bg-primary-600 rounded-full">
+                            <button id="theme-toggle" class="p-2 bg-gray-200 {% if theme == 'blue' %}bg-blue-600{% elseif theme == 'green' %}bg-green-600{% else %}bg-primary-600{% endif %} rounded-full">
                                 <span id="theme-toggle-icon" class="ri-sun-line fill-current text-gray-800 dark:text-gray-200"></span>
                             </button>
                         </li>

@@ -3,16 +3,57 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-<!-- start: Sidebar -->
-        <div class="fixed left-0 top-0 w-1/4 h-full bg-white p-4 z-50 sidebar-menu transition-transform"></div>
-        <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+
+<div class="h-screen">
+
+    <!-- start: Sidebar -->
+    <div class="fixed left-0 top-0 w-1/4 h-full bg-white p-4 z-50 sidebar-menu transition-transform">
+        <a href="/">
+            <h2 class="text-orange-500 text-5xl font-bold my-10 text-center">GymVoice</h2>
+        </a>  
+        <p class="text-center mx-10">Votre web app qui vous permet de gérer vos facture de manière simple </p>
+
+        <div class="mt-28 text-center">
+            <p class="py-2 font-bold text-xl"><i class="fa-solid fa-play mr-6"></i> Suivre vos factures</p>
+            <p class="py-2 font-bold text-xl"><i class="fa-solid fa-play mr-6"></i> Générer des devis PDF</p>
+            <p class="py-2 font-bold text-xl"><i class="fa-solid fa-play mr-6"></i> Archivez vos clients</p>
+        </div>
+
+        <ul class=" relative flex justify-center items-center gap-6 mt-36">
+            <li>
+                <a href="#" alt="Tw" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-github m-auto"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" alt="Fb" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-linkedin m-auto"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" alt="GG" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-instagram m-auto"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" alt="In" class="flex rounded-full bg-orange-400 aspect-square w-12 text-white">
+                    <i class="fa-brands fa-twitter m-auto"></i>
+                </a>
+            </li>
+        </ul>
+
+
+        <div class="fixed bottom-0 left-0 flex flex-col items-start">
+            <div class="relative">
+                <div class="bg-black w-24 h-24 relative mb-4 ml-4"></div>
+                <div class="bg-orange-500 w-[150px] h-[150px] rounded-tr-full mb-12 ml-6 absolute -top-16 left-0"></div>
+            </div>
+        </div>
+    </div>
     <!-- end: Sidebar -->
 
-
-
-<div class="bg-cover bg-center h-screen" style="background-image: url('{{ asset('images/muscu.jpg') }}');">
-    <div class="min-h-screen flex items-center justify-center">
-        <div class="w-full max-w-md p-8">
+    <div class="ml-1/4 w-3/4 min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{ asset('images/muscu.jpg') }}');">
+        <div class="w-full max-w-md p-8 bg-opacity-75 bg-gray-800 rounded">
             <form method="post">
 
                 {% if app.user %}
@@ -21,30 +62,68 @@
                     </div>
                 {% endif %}
 
-                <h1 class="text-xl mb-6 font-bold text-white text-center">Créer un compte</h1>
+                <h1 class="text-xl mb-6 font-bold text-gray-900 text-center">Créer un compte</h1>
                 {{ form_errors(registrationForm) }}
 
-                {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.firstname) }}
-                    {{ form_row(registrationForm.lastname) }}
-                    {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.gender) }}
-                    {{ form_row(registrationForm.plainPassword.first, {
-                    label: 'Password'
-                    }) }}
-                    {{ form_row(registrationForm.plainPassword.second, {
-                        label: 'Confirm Password'
-                    }) }}
-                    {{ form_row(registrationForm.agreeTerms) }}
+                {{ form_start(registrationForm, {'attr': {'class': 'grid grid-cols-1 md:grid-cols-2 gap-6'}}) }}
+                    <div class="col-span-1">
+                        {{ form_label(registrationForm.firstname, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                        {{ form_widget(registrationForm.firstname, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                        {{ form_errors(registrationForm.firstname, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                    </div>
 
-                    <button class="w-full h-14 rounded bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4" type="submit">
-                    Créer mon compte
-                    </button>
+                    <div class="col-span-1">
+                        {{ form_label(registrationForm.lastname, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                        {{ form_widget(registrationForm.lastname, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                        {{ form_errors(registrationForm.lastname, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                    </div>
+
+                    <div class="col-span-1">
+                        {{ form_label(registrationForm.email, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                        {{ form_errors(registrationForm.email, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                    </div>
+
+                    <div class="col-span-2">
+                        {{ form_label(registrationForm.gender, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                        <div class="mt-1 space-y-4">
+                            {{ form_widget(registrationForm.gender, {'attr': {'class': 'focus:ring-orange-500 h-4 w-96 text-orange-600 border-gray-300 rounded'}}) }}
+                        </div>
+                        {{ form_errors(registrationForm.gender, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                    </div>
+
+                    <div class="col-span-1">
+                        {{ form_label(registrationForm.plainPassword.first, 'Password', {'class': 'block text-sm font-medium text-gray-700'}) }}
+                        {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                        {{ form_errors(registrationForm.plainPassword.first, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                    </div>
+
+                    <div class="col-span-1">
+                        {{ form_label(registrationForm.plainPassword.second, 'Confirm Password', {'class': 'block text-sm font-medium text-gray-700'}) }}
+                        {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:border-orange-500 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                        {{ form_errors(registrationForm.plainPassword.second, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                    </div>
+
+                    <div class="col-span-2 flex items-start">
+                        <div class="flex items-center h-5">
+                            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'}}) }}
+                        </div>
+                        <div class="ml-3 text-sm">
+                            {{ form_label(registrationForm.agreeTerms, null, {'class': 'font-medium text-gray-700'}) }}
+                        </div>
+                    </div>
+
+                    <div class="col-span-2">
+                        <button class="w-full h-14 rounded bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4" type="submit">
+                            Créer mon compte
+                        </button>
+                    </div>
                 {{ form_end(registrationForm) }}
 
             </form>
-            <p class="text-center text-white">Vous avez déjà un compte ? <a href="/login">Se connecter</a></p>
+            <p class="text-center text-gray-900 mt-4">Vous avez déjà un compte ? <a href="/login" class="text-indigo-500 hover:underline">Se connecter</a></p>
         </div>
     </div>
+
 </div>
 {% endblock %}

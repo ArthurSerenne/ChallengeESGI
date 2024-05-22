@@ -1,21 +1,189 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}GymVoice{% endblock %}
 
 {% block body %}
-<div class="bg-cover bg-center h-screen>
-    <div class="flex items-start justify-end p-5">
-        <a href="/login">
-            <button class="w-[180px] h-[50px] rounded-[10px] text-xl mt-5 mr-2 bg-white border border-[#f48000] text-[#f48000] hover:bg-[#f48000] hover:text-white font-bold" style="box-shadow: 0px 4px 4px 0 rgba(0,0,0,0.25);">Connexion</button>
-        </a>    
-        <button class="w-[180px] h-[50px] rounded-[10px] text-xl mt-5 bg-[#f48000] text-white font-bold" style="box-shadow: 0px 4px 4px 0 rgba(0,0,0,0.25);">Inscription</button>
+<div class="flex flex-col items-center min-h-screen">
+
+    <!-- Header section -->
+    <div class="relative w-full min-h-screen">
+        <div class="flex justify-end w-full pt-0 pr-4 space-x-2">
+            <a href="/login">
+                <button class="w-48 h-14 rounded-lg text-xl mt-5 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-bold shadow-lg">Connexion</button>
+            </a> 
+            <a href="/register">
+                <button class="w-48 h-14 rounded-lg text-xl mt-5 bg-orange-500 text-white font-bold shadow-lg">Inscription</button>
+            </a>
+        </div>
+        <div class="mx-auto flex flex-col md:flex-row">
+            <div class="w-full md:w-1/2 p-8 flex flex-col items-center ml-24 mt-56">
+                <h2 class="text-orange-500 text-8xl font-bold mb-10">GymVoice</h2>
+                <button class="m-6 px-9 py-5 bg-black text-white rounded-lg hover:bg-primary-600 focus:outline-none transform scale-150">Créer un compte</button>
+                <p class="px-56 mt-4 text-center">Créez, envoyez et gérez vos devis et factures en ligne facilement avec GymVoice. GymVoice est le meilleur logiciel de facturation adapté aux entrepreneurs et aux petites entreprises de matériels de sport.</p>
+            </div>
+            <div class="w-full md:w-1/2 p-8l mt-20 ml-0">
+                <div class="relative">
+                    <div class="absolute transform top-64 left-64 bg-black w-96 h-96"></div>
+                    <div class="absolute transform bg-orange-500 w-[610px] h-[610px] rounded-tl-full"></div>
+                    <img src="{{ asset('images/sportif.png') }}" alt="sportif" class="absolute transform -top-24 left-0 w-[580px] h-[850px]">
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <div class="w-80 h-80 absolute left-2/3 top-8 bg-black"></div>
-        <div class="w-[505px] h-[505px] absolute left-[1052px] top-[215px] rounded-tl-[416px] bg-[#f48000]"></div>
-        <svg class="absolute w-[11] h-[11] left-[716px] top-[612px]" preserveAspectRatio="none">
-            <path d="M161 80.5C161 124.959 124.959 161 80.5 161C36.0411 161 0 124.959 0 80.5C0 36.0411 36.0411 0 80.5 0C124.959 0 161 36.0411 161 80.5ZM3.40921 80.5C3.40921 123.076 37.9239 157.591 80.5 157.591C123.076 157.591 157.591 123.076 157.591 80.5C157.591 37.9239 123.076 3.40921 80.5 3.40921C37.9239 3.40921 3.40921 37.9239 3.40921 80.5Z" fill="black"></path>
-        </svg>
+
+    <!-- Freemium section -->
+    <div class="w-full mt-32">
+        <div class="flex flex-col items-center mb-32">
+            <p class="text-5xl font-semibold">Évoluez avec GymVoice</p>
+            <p class="mt-6 text-xl text-center font-light max-w-4xl mx-auto">
+                Créez et envoyez des factures gratuitement avec le logiciel de facturation GymVoice et upgradez à mesure que votre entreprise se développe. Optez pour un abonnement annuel et économisez jusqu’à 15 %, ou préférez un abonnement mensuel et bénéficiez d’un essai gratuit de 14 jours.
+            </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-10 mx-64">
+            <div class="bg-white border-2 border-orange-300 rounded-2xl text-center shadow-md flex flex-col items-center">
+                <p class="text-5xl font-light py-6">Gratuit</p>
+                <p class="text-8xl">0 <sapn class="text-5xl">€</span></p>
+                <p class="mt-16">0 € payés une fois par an</p>
+                <a href="#" class="bg-orange-500 hover:bg-white hover:border-2 hover:border-orange-500 hover:text-black w-10/12 h-20 rounded-lg mt-4 flex items-center justify-center text-2xl font-black text-white">
+                    Choisir GRATUIT
+                </a>
+                <div class="w-full px-16 my-8 text-left">
+                    <p class="text-2xl py-3 font-semibold">5 Clients</p>
+                    <p class="text-2xl py-3 font-semibold">5 Factures par mois<br/><span class="text-sm font-extralight">par email et PDF</span></p>
+                    <p class="text-2xl py-3 font-semibold">1 Entreprise</p>
+                </div>
+                <hr class="w-3/4 mx-2 border-orange-400" />
+                <div class="w-full px-16 my-6 text-left">
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Devis</p>
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Gestion du temps</p>
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Payement en ligne**</p>
+                </div>
+            </div>
+
+            <div class="bg-white border-2 border-orange-300 rounded-2xl text-center shadow-md flex flex-col items-center">
+                <p class="text-5xl font-light py-6">Starter</p>
+                <p class="text-8xl">19 <sapn class="text-5xl">€</span></p>
+                <p class="mt-16">200 € payés une fois par an</p>
+                <a href="#" class="bg-orange-500 hover:bg-white hover:border-2 hover:border-orange-500 hover:text-black w-10/12 h-20 rounded-lg mt-4 flex items-center justify-center text-2xl font-black text-white">
+                    Choisir STARTER
+                </a>
+                <div class="w-full px-16 my-8 text-left">
+                    <p class="text-2xl py-3 font-semibold">50 Clients</p>
+                    <p class="text-2xl py-3 font-semibold">Factures ilimitées<br/><span class="text-sm font-extralight">par email et PDF</span></p>
+                    <p class="text-2xl py-3 font-semibold">30 Entreprises</p>
+                </div>
+                <hr class="w-3/4 mx-2 border-orange-400" />
+                <div class="w-full px-16 my-6 text-left">
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Devis</p>
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Gestion du temps</p>
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Payement en ligne**</p>
+                </div>
+            </div>
+            <div class="bg-white border-2 border-orange-300 rounded-2xl text-center shadow-md flex flex-col items-center">
+                <p class="text-5xl font-light py-6">Pro</p>
+                <p class="text-8xl">39 <sapn class="text-5xl">€</span></p>
+                <p class="mt-16">400 € payés une fois par an</p>
+                <a href="#" class="bg-orange-500 hover:bg-white hover:border-2 hover:border-orange-500 hover:text-black w-10/12 h-20 rounded-lg mt-4 flex items-center justify-center text-2xl font-black text-white">
+                    Choisir PRO
+                </a>
+                <div class="w-full px-16 my-8 text-left">
+                    <p class="text-2xl py-3 font-semibold">Clients ilimités</p>
+                    <p class="text-2xl py-3 font-semibold">Factures ilimitées<br/><span class="text-sm font-extralight">par email et PDF</span></p>
+                    <p class="text-2xl py-3 font-semibold">Entreprises ilimitées</p>
+                </div>
+                <hr class="w-3/4 mx-2 border-orange-400" />
+                <div class="w-full px-16 my-6 text-left">
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Devis</p>
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Gestion du temps</p>
+                    <p class="text-2xl py-3 font-semibold"><i class="fa-regular fa-square-check"></i> Payement en ligne**</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Avis clients Section -->
+    <div class="w-full mt-56 mb-28">
+        <div class="flex flex-col items-center mb-24">
+            <p class="text-5xl font-semibold">Nos avis clients</p>
+            <p class="mt-6 text-xl text-center font-light max-w-4xl mx-auto">
+                Créez et envoyez des factures gratuitement avec le logiciel de facturation GymVoice et upgradez à mesure que votre entreprise se développe. Optez pour un abonnement annuel et économisez jusqu’à 15 %, ou préférez un abonnement mensuel et bénéficiez d’un essai gratuit de 14 jours.
+            </p>
+        </div>
+        <div class="mt-8 mb-20 grid md:grid-cols-3 gap-10 mx-64">
+            <div class="bg-gray-200 p-6 rounded-lg shadow-md text-left">
+                <div class="flex items-center space-x-4">
+                    <img src="{{ asset('images/arthur.jpeg') }}" alt="Avatar" class="w-12 h-12 rounded-full">
+                    <p class="text-xl font-semibold">Arthur SERENNE</p>
+                </div>
+                <hr class="w-3/4 mx-2 border-1 mt-4 border-slate-800" />
+                <div class="mt-4 flex space-x-1">
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-gray-500 text-center"><i class="fa-regular fa-star"></i></div>
+                </div>
+                <p class="mt-4 text-sm font-bold">Simple et ergonomique.</p>
+                <p class="text-xs">Produit vraiment simple d'utilisation et ergonomique.</p>
+                <p class="mt-4 text-xs">Quelques pistes d'évolution pour que le produit soit parfait pour mon usage :</p>
+                <ul class="text-xs list-disc list-inside mt-2">
+                    <li>Pouvoir nommer la taxe serait un plus et permettrai à Zervant de s'ouvrir à des marchés n'utilisant pas la TVA.</li>
+                    <li>Saisir un paiement partiel sur une facture afin de connaître le reste à payer pour le client.</li>
+                </ul>
+            </div>
+            <div class="bg-gray-200 p-6 rounded-lg shadow-md text-left">
+                <div class="flex items-center space-x-4">
+                    <img src="{{ asset('images/arthur.jpeg') }}" alt="Avatar" class="w-12 h-12 rounded-full">
+                    <p class="text-xl font-semibold">Arthur SERENNE</p>
+                </div>
+                <hr class="w-3/4 mx-2 border-1 mt-4 border-slate-800" />
+                <div class="mt-4 flex space-x-1">
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-gray-500 text-center"><i class="fa-regular fa-star"></i></div>
+                </div>
+                <p class="mt-4 text-sm font-bold">Simple et ergonomique.</p>
+                <p class="text-xs">Produit vraiment simple d'utilisation et ergonomique.</p>
+                <p class="mt-4 text-xs">Quelques pistes d'évolution pour que le produit soit parfait pour mon usage :</p>
+                <ul class="text-xs list-disc list-inside mt-2">
+                    <li>Pouvoir nommer la taxe serait un plus et permettrai à Zervant de s'ouvrir à des marchés n'utilisant pas la TVA.</li>
+                    <li>Saisir un paiement partiel sur une facture afin de connaître le reste à payer pour le client.</li>
+                </ul>
+            </div>
+            <div class="bg-gray-200 p-6 rounded-lg shadow-md text-left">
+                <div class="flex items-center space-x-4">
+                    <img src="{{ asset('images/arthur.jpeg') }}" alt="Avatar" class="w-12 h-12 rounded-full">
+                    <p class="text-xl font-semibold">Arthur SERENNE</p>
+                </div>
+                <hr class="w-3/4 mx-2 border-1 mt-4 border-slate-800" />
+                <div class="mt-4 flex space-x-1">
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-orange-500 text-center text-white"><i class="fa-regular fa-star"></i></div>
+                    <div class="w-6 h-6 bg-gray-500 text-center"><i class="fa-regular fa-star"></i></div>
+                </div>
+                <p class="mt-4 text-sm font-bold">Simple et ergonomique.</p>
+                <p class="text-xs">Produit vraiment simple d'utilisation et ergonomique.</p>
+                <p class="mt-4 text-xs">Quelques pistes d'évolution pour que le produit soit parfait pour mon usage :</p>
+                <ul class="text-xs list-disc list-inside mt-2">
+                    <li>Pouvoir nommer la taxe serait un plus et permettrai à Zervant de s'ouvrir à des marchés n'utilisant pas la TVA.</li>
+                    <li>Saisir un paiement partiel sur une facture afin de connaître le reste à payer pour le client.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Section -->
+    <div class="w-full h-96 bg-black">
+        <p class="text-5xl font-semibold">Nos avis clients</p>
+        <p class="mt-6 text-xl text-center font-light max-w-4xl mx-auto">
+            Créez et envoyez des factures gratuitement avec le logiciel de facturation GymVoice et upgradez à mesure que votre entreprise se développe. Optez pour un abonnement annuel et économisez jusqu’à 15 %, ou préférez un abonnement mensuel et bénéficiez d’un essai gratuit de 14 jours.
+        </p>
     </div>
 </div>
 {% endblock %}
