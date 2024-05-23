@@ -8,15 +8,19 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-    <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Settings</h1>
-        <form method="post">
-            {{ form_start(form) }}
-            <div class="mb-4">
-                {{ form_row(form.theme) }}
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-            {{ form_end(form) }}
-        </form>
+    <div class="container mx-auto p-8">
+        <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Paramètres</h1>
+            <form method="post">
+                {{ form_start(form) }}
+                <div class="mb-4">
+                    {{ form_label(form.theme, 'Choisir la couleur du thème', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    {{ form_widget(form.theme, {'attr': {'class': 'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
+                    {{ form_errors(form.theme) }}
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Enregistrer</button>
+                {{ form_end(form) }}
+            </form>
+        </div>
     </div>
 {% endblock %}

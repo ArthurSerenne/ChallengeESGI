@@ -15,9 +15,9 @@ class SettingsFormType extends AbstractType
         $builder
             ->add('theme', ChoiceType::class, [
                 'choices' => [
-                    'Original' => 'original',
-                    'Blue' => 'blue',
-                    'Green' => 'green',
+                    'Principal' => 'principal',
+                    'Turquoise' => 'turquoise',
+                    'Grenade' => 'grenade',
                 ],
                 'label' => 'Theme',
             ])
