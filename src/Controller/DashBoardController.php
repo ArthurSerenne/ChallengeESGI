@@ -20,14 +20,18 @@ class DashBoardController extends AbstractController
 {
 
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(#[CurrentUser] User $user): Response
+    public function dashboard(#[CurrentUser] User $user, EntityManagerInterface $entityManager): Response
     {
         $company = $user->getCompany();
-        $theme = $user ? $user->getTheme() : 'original';
+        $theme = $user ? $user->getTheme() : 'principal';
+
+        // Récupérer le nombre de clients
+        $clientCount = $entityManager->getRepository(Clients::class)->count(['company' => $company]);
 
         return $this->render('backoffice/dashboard.html.twig', [
             'company' => $company,
             'theme' => $theme,
+            'clientCount' => $clientCount,
         ]);
     }
 }
