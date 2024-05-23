@@ -14,23 +14,27 @@ use App\Form\ClientsFormType;
 
 class ClientsController extends AbstractController
 {
-    #[Route('/clients', name: 'app_clients')]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('dashboard/clients', name: 'app_clients')]
+    public function index(): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
         $clients = $company->getClients();
+        $theme = $user ? $user->getTheme() : 'original';
 
-        return $this->render('client/index.html.twig', [
+        return $this->render('backoffice/clients/index.html.twig', [
             'clients' => $clients,
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/clients/new', name: 'client_new')]
+    
+    #[Route('dashboard/clients/new', name: 'app_clients_create')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
 
         $client = new Clients();
         $form = $this->createForm(ClientsFormType::class, $client);
@@ -41,11 +45,12 @@ class ClientsController extends AbstractController
             $entityManager->persist($client);
             $entityManager->flush();
 
-            return $this->redirectToRoute('client_index');
+            return $this->redirectToRoute('app_clients');
         }
 
-        return $this->render('client/new.html.twig', [
+        return $this->render('backoffice/clients/create.html.twig', [
             'clientForm' => $form->createView(),
+            'theme' => $theme,
         ]);
     }
 }
