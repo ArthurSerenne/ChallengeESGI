@@ -1,0 +1,44 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Add New Client{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-4">Modifier un client</h1>
+
+                {{ form_start(clientForm) }}
+                <div class="col-span-1">
+                    {{ form_label(clientForm.name, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.name, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.name, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(clientForm.lastname, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.lastname, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.lastname, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(clientForm.email, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.email, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.email, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(clientForm.phone, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.phone, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none focus:bg-white p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.phone, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div>
+                    <button class="w-full h-14 rounded {% if theme == 'blue' %}bg-lightblue-500{% elseif theme == 'green' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'blue' %}bg-lightblue-700{% elseif theme == 'green' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4" type="submit">
+                        Ajouter
+                    </button>
+                </div>
+                {{ form_end(clientForm) }}
+
+                <a href="{{ path('app_clients') }}">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

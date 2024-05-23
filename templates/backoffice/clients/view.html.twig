@@ -1,0 +1,22 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Clients{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-4 text-4xl font-bold mb-6">Client : {{ client.name }} {{ client.lastname }}</h1>
+                <p class="p-4 font-bold">Nom: {{ client.name }}</p>
+                <p class="p-4 font-bold">Prénom: {{ client.lastname }}</p>
+                <p class="p-4 font-bold">Email: {{ client.email }}</p>
+                <p class="p-4 font-bold mb-6">Téléphone: {{ client.phone }}</p>
+                <a class="" href="{{ path('app_clients') }}">
+                    <button class="w-full h-14 rounded {% if theme == 'blue' %}bg-lightblue-500{% elseif theme == 'green' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'blue' %}bg-lightblue-700{% elseif theme == 'green' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4">
+                        Retour à la liste
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

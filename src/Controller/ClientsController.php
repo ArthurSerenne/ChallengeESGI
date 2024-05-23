@@ -53,4 +53,70 @@ class ClientsController extends AbstractController
             'theme' => $theme,
         ]);
     }
+
+    #[Route('dashboard/clients/{id}', name: 'app_clients_view')]
+    public function view(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+        
+        $client = $entityManager->getRepository(Clients::class)->find($id);
+
+        if (!$client) {
+            throw $this->createNotFoundException('Aucun client trouvé !!');
+        }
+
+        return $this->render('backoffice/clients/view.html.twig', [
+            'client' => $client,
+            'theme' => $theme,
+        ]);
+    }
+
+    #[Route('dashboard/clients/{id}/edit', name: 'app_clients_edit')]
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+        
+        $client = $entityManager->getRepository(Clients::class)->find($id);
+
+        if (!$client) {
+            throw $this->createNotFoundException('Client not found');
+        }
+
+        $form = $this->createForm(ClientsFormType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_clients'); // Assurez-vous d'avoir une route vers la liste des clients
+        }
+
+        return $this->render('backoffice/clients/edit.html.twig', [
+            'clientForm' => $form->createView(),
+            'theme' => $theme,
+        ]);
+    }
+
+    #[Route('dashboard/clients/{id}/delete', name: 'app_clients_delete')]
+    public function delete(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+        
+        $client = $entityManager->getRepository(Clients::class)->find($id);
+
+        if (!$client) {
+            throw $this->createNotFoundException('Aucun client trouvé !!');
+        }
+
+        $entityManager->remove($client);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_clients');
+    }
 }
