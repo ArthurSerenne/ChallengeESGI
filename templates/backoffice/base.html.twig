@@ -16,6 +16,8 @@
         {% endblock %}
     </head>
     <body class="bg-base-100 h-full">
+
+            {% if is_granted('ROLE_COMPANY') %}
             <!-- start: Sidebar -->
             <div class="fixed left-0 top-0 w-64 h-full {% if theme == 'turquoise' %}bg-lightblue-600{% elseif theme == 'grenade' %}bg-darkred-600{% else %}bg-primary-600{% endif %} p-4 z-50 sidebar-menu transition-transform">
                 <a href="#" class="flex items-center pb-4 border-b border-b-slate-200">
@@ -117,7 +119,173 @@
                     </ul>
                 </div>
             </main>
-            <!-- end: Main -->
+            {% endif %}
+
+            {% if is_granted('ROLE_COMPTABLE') %}
+            <!-- start: Sidebar -->
+            <div class="fixed left-0 top-0 w-64 h-full {% if theme == 'turquoise' %}bg-lightblue-600{% elseif theme == 'grenade' %}bg-darkred-600{% else %}bg-primary-600{% endif %} p-4 z-50 sidebar-menu transition-transform">
+                <a href="#" class="flex items-center pb-4 border-b border-b-slate-200">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover">
+                    <span class="text-lg font-bold text-white ml-3">Gym-voice</span>
+                </a>
+                <ul class=" flex flex-col mt-4 h-full">
+                    <li class="mb-1 group active">
+                        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-[.active]:bg-lightblue-500 group-[.selected]:bg-lightblue-400{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-[.active]:bg-darkred-500 group-[.selected]:bg-darkred-400{% else %}hover:bg-primary-500 group-[.active]:bg-primary-500 group-[.selected]:bg-primary-400{% endif %}  hover:text-gray-100 rounded-md group-[.active]:text-white group-[.selected]:text-gray-100">
+                            <i class="ri-home-2-line mr-3 text-lg"></i>
+                            <span class="text-sm">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
+                            <span class="text-sm">Factures</span>
+                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
+                        </a>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
+                            <span class="text-sm">Rapport</span>
+                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
+                        </a>
+                    </li>
+                    <li class="mb-18 group">
+                        <a href="/dashboard/settings" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="ri-settings-2-line mr-3 text-lg"></i>
+                            <span class="text-sm">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+            <!-- end: Sidebar -->
+
+
+
+
+            <!-- start: Main -->
+            <main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-50 transition-all main">
+
+                <!-- Navigation top -->
+                <div class="py-2 px-6 bg-white flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
+                    <button type="button" class="text-lg text-gray-600 sidebar-toggle">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                    <ul class="flex items-center text-sm ml-4">
+                        <li class="mr-2">
+                            <a href="#" class="text-gray-400 hover:text-gray-600 font-medium">Dashboard</a>
+                        </li>
+                        <li class="mr-1 dropdown">
+                            <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:bg-gray-50 hover:text-gray-600">
+                                <i class="ri-search-line"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    <ul class="ml-auto flex items-center">
+                        <li class="ml-3">
+                            <button id="theme-toggle" class="p-2 bg-gray-200 {% if theme == 'turquoise' %}bg-lightblue-600{% elseif theme == 'grenade' %}bg-darkred-600{% else %}bg-primary-600{% endif %} rounded-full">
+                                <span id="theme-toggle-icon" class="ri-sun-line fill-current text-gray-800 dark:text-gray-200"></span>
+                            </button>
+                        </li>
+                        <li class="ml-3">
+                            <a href="/logout" class="">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </main>    
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <!-- start: Sidebar -->
+            <div class="fixed left-0 top-0 w-64 h-full {% if theme == 'turquoise' %}bg-lightblue-600{% elseif theme == 'grenade' %}bg-darkred-600{% else %}bg-primary-600{% endif %} p-4 z-50 sidebar-menu transition-transform">
+                <a href="#" class="flex items-center pb-4 border-b border-b-slate-200">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover">
+                    <span class="text-lg font-bold text-white ml-3">Gym-voice</span>
+                </a>
+                <ul class=" flex flex-col mt-4 h-full">
+                    <li class="mb-1 group active">
+                        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-[.active]:bg-lightblue-500 group-[.selected]:bg-lightblue-400{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-[.active]:bg-darkred-500 group-[.selected]:bg-darkred-400{% else %}hover:bg-primary-500 group-[.active]:bg-primary-500 group-[.selected]:bg-primary-400{% endif %}  hover:text-gray-100 rounded-md group-[.active]:text-white group-[.selected]:text-gray-100">
+                            <i class="ri-home-2-line mr-3 text-lg"></i>
+                            <span class="text-sm">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
+                            <span class="text-sm">User</span>
+                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
+                        </a>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
+                            <span class="text-sm">Entreprise</span>
+                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
+                        </a>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
+                            <span class="text-sm">Factures</span>
+                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
+                        </a>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="#" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
+                            <span class="text-sm">Rapport</span>
+                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
+                        </a>
+                    </li>
+                    <li class="mb-18 group">
+                        <a href="/dashboard/settings" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="ri-settings-2-line mr-3 text-lg"></i>
+                            <span class="text-sm">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+            <!-- end: Sidebar -->
+
+
+
+
+            <!-- start: Main -->
+            <main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-50 transition-all main">
+
+                <!-- Navigation top -->
+                <div class="py-2 px-6 bg-white flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
+                    <button type="button" class="text-lg text-gray-600 sidebar-toggle">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                    <ul class="flex items-center text-sm ml-4">
+                        <li class="mr-2">
+                            <a href="#" class="text-gray-400 hover:text-gray-600 font-medium">Dashboard</a>
+                        </li>
+                        <li class="mr-1 dropdown">
+                            <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:bg-gray-50 hover:text-gray-600">
+                                <i class="ri-search-line"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    <ul class="ml-auto flex items-center">
+                        <li class="ml-3">
+                            <button id="theme-toggle" class="p-2 bg-gray-200 {% if theme == 'turquoise' %}bg-lightblue-600{% elseif theme == 'grenade' %}bg-darkred-600{% else %}bg-primary-600{% endif %} rounded-full">
+                                <span id="theme-toggle-icon" class="ri-sun-line fill-current text-gray-800 dark:text-gray-200"></span>
+                            </button>
+                        </li>
+                        <li class="ml-3">
+                            <a href="/logout" class="">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </main>    
+            {% endif %}
 
 
             {% block body %}{% endblock %}

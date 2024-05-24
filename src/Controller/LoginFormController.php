@@ -37,6 +37,14 @@ class LoginFormController extends AbstractController
             throw new \LogicException('The user is not logged in.');
         }
 
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin');
+        }
+
+        if ($this->isGranted('ROLE_COMPTABLE')) {
+            return $this->redirectToRoute('app_dashboard');
+        }
+
         if (!$user->getCompany()) {
             return $this->redirectToRoute('app_company');
         }

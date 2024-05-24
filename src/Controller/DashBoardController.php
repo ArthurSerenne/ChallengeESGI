@@ -20,9 +20,10 @@ class DashBoardController extends AbstractController
 {
 
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(#[CurrentUser] User $user, EntityManagerInterface $entityManager): Response
+    public function dashboard(#[CurrentUser] User $user, EntityManagerInterface $entityManager, Security $security): Response
     {
         $company = $user->getCompany();
+        $user = $security->getUser();
         $theme = $user ? $user->getTheme() : 'principal';
 
         // Récupérer le nombre de clients
@@ -30,6 +31,25 @@ class DashBoardController extends AbstractController
 
         return $this->render('backoffice/dashboard.html.twig', [
             'company' => $company,
+            'user' => $user,
+            'theme' => $theme,
+            'clientCount' => $clientCount,
+        ]);
+    }
+
+    #[Route('/admin', name: 'app_admin')]
+    public function admin(#[CurrentUser] User $user, EntityManagerInterface $entityManager, Security $security): Response
+    {
+        $company = $user->getCompany();
+        $user = $security->getUser();
+        $theme = $user ? $user->getTheme() : 'principal';
+
+        // Récupérer le nombre de clients
+        $clientCount = $entityManager->getRepository(Clients::class)->count(['company' => $company]);
+
+        return $this->render('backoffice/admin/admin.html.twig', [
+            'company' => $company,
+            'user' => $user,
             'theme' => $theme,
             'clientCount' => $clientCount,
         ]);
