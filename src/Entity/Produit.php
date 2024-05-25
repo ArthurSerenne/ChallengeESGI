@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -21,6 +23,17 @@ class Produit
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+
+    /**
+     * @var Collection<int, Facture>
+     */
+    #[ORM\ManyToMany(targetEntity: Facture::class, mappedBy: 'produits')]
+    private Collection $factures;
+
+    public function __construct()
+    {
+        $this->factures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +72,33 @@ class Produit
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Facture>
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): static
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures->add($facture);
+            $facture->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): static
+    {
+        if ($this->factures->removeElement($facture)) {
+            $facture->removeProduit($this);
+        }
 
         return $this;
     }
