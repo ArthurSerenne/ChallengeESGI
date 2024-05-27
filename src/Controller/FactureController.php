@@ -11,20 +11,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/facture')]
 class FactureController extends AbstractController
 {
-    #[Route('/', name: 'app_facture_index', methods: ['GET'])]
+    #[Route('dashboard/facture', name: 'app_facture_index', methods: ['GET'])]
     public function index(FactureRepository $factureRepository): Response
     {
-        return $this->render('facture/index.html.twig', [
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
+        return $this->render('backoffice/facture/index.html.twig', [
             'factures' => $factureRepository->findAll(),
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/new', name: 'app_facture_new', methods: ['GET', 'POST'])]
+    #[Route('dashboard/facture/new', name: 'app_facture_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
         $facture = new Facture();
         $form = $this->createForm(FactureType::class, $facture);
         $form->handleRequest($request);
@@ -36,23 +45,35 @@ class FactureController extends AbstractController
             return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('facture/new.html.twig', [
+        return $this->render('backoffice/facture/new.html.twig', [
             'facture' => $facture,
             'form' => $form,
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_facture_show', methods: ['GET'])]
+    #[Route('dashboard/facture/{id}', name: 'app_facture_show', methods: ['GET'])]
     public function show(Facture $facture): Response
     {
-        return $this->render('facture/show.html.twig', [
+
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
+        return $this->render('backoffice/facture/show.html.twig', [
             'facture' => $facture,
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_facture_edit', methods: ['GET', 'POST'])]
+    #[Route('dashboard/facture/{id}/edit', name: 'app_facture_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Facture $facture, EntityManagerInterface $entityManager): Response
     {
+
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
         $form = $this->createForm(FactureType::class, $facture);
         $form->handleRequest($request);
 
@@ -62,13 +83,14 @@ class FactureController extends AbstractController
             return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('facture/edit.html.twig', [
+        return $this->render('backoffice/facture/edit.html.twig', [
             'facture' => $facture,
             'form' => $form,
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_facture_delete', methods: ['POST'])]
+    #[Route('dashboard/facture/{id}', name: 'app_facture_delete', methods: ['POST'])]
     public function delete(Request $request, Facture $facture, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$facture->getId(), $request->getPayload()->get('_token'))) {
