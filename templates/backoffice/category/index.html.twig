@@ -1,0 +1,39 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-4 text-4xl font-bold mb-6">Liste des Catégories <i class="fa-solid fa-users"></i></h1>
+                <a href="{{ path('app_category_new') }}">Ajouter une Catégorie <i class="fa-solid fa-plus"></i></a>
+                <table class="min-w-full border-collapse mt-8">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-4 text-left">Id</th>
+                            <th class="border border-gray-300 p-4 text-left">Categorie</th>
+                            <th class="border border-gray-300 p-4 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td class="border border-gray-300 p-4 text-left">{{ category.id }}</td>
+                                <td class="border border-gray-300 p-4 text-left">{{ category.Category }}</td>
+                                <td class="border border-gray-300 p-4 text-left flex justify-around">
+                                    <a href="{{ path('app_category_show', {'id': category.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ path('app_category_edit', {'id': category.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <form method="post" action="{{ path('app_category_delete', {id: category.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer cette catégorie ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                        <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

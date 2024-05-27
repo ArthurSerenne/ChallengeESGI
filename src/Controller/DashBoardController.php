@@ -54,4 +54,20 @@ class DashBoardController extends AbstractController
             'clientCount' => $clientCount,
         ]);
     }
+
+    #[Route('/dashboard/components', name: 'app_component')]
+    public function component(#[CurrentUser] User $user, EntityManagerInterface $entityManager, Security $security): Response
+    {
+        $company = $user->getCompany();
+        $user = $security->getUser();
+        $theme = $user ? $user->getTheme() : 'principal';
+
+    
+
+        return $this->render('backoffice/components/component.html.twig', [
+            'company' => $company,
+            'user' => $user,
+            'theme' => $theme,
+        ]);
+    }
 }

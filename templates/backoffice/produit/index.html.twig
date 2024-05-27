@@ -1,0 +1,41 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-4 text-4xl font-bold mb-6">Liste des Produits <i class="fa-solid fa-users"></i></h1>
+                <a href="{{ path('app_produit_new') }}">Ajouter un Produit <i class="fa-solid fa-plus"></i></a>
+                <table class="min-w-full border-collapse mt-8">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-4 text-left">Nom</th>
+                            <th class="border border-gray-300 p-4 text-left">Prix</th>
+                            <th class="border border-gray-300 p-4 text-left">Description</th>
+                            <th class="border border-gray-300 p-4 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produit in produits %}
+                            <tr>
+                                <td class="border border-gray-300 p-4 text-left">{{ produit.nom }}</td>
+                                <td class="border border-gray-300 p-4 text-left">{{ produit.prix }}</td>
+                                <td class="border border-gray-300 p-4 text-left">{{ produit.description }}</td>
+                                <td class="border border-gray-300 p-4 text-left flex justify-around">
+                                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <form method="post" action="{{ path('app_produit_delete', {id: produit.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer ce produit ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+                                        <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -11,20 +11,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/produit')]
 class ProduitController extends AbstractController
 {
-    #[Route('/', name: 'app_produit_index', methods: ['GET'])]
+    #[Route('dashboard/produit', name: 'app_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): Response
     {
-        return $this->render('produit/index.html.twig', [
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
+        return $this->render('backoffice/produit/index.html.twig', [
             'produits' => $produitRepository->findAll(),
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
+    #[Route('dashboard/produit/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
@@ -36,23 +44,33 @@ class ProduitController extends AbstractController
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('produit/new.html.twig', [
+        return $this->render('backoffice/produit/new.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produit_show', methods: ['GET'])]
+    #[Route('dashboard/produit/{id}', name: 'app_produit_show', methods: ['GET'])]
     public function show(Produit $produit): Response
     {
-        return $this->render('produit/show.html.twig', [
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
+        return $this->render('backoffice/produit/show.html.twig', [
             'produit' => $produit,
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
+    #[Route('dashboard/produit/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
@@ -62,13 +80,14 @@ class ProduitController extends AbstractController
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('produit/edit.html.twig', [
+        return $this->render('backoffice/produit/edit.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'theme' => $theme,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
+    #[Route('dashboard/produit/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->getPayload()->get('_token'))) {
