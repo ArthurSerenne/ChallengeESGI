@@ -22,6 +22,7 @@ class FactureController extends AbstractController
 
         return $this->render('backoffice/facture/index.html.twig', [
             'factures' => $factureRepository->findAll(),
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -47,6 +48,7 @@ class FactureController extends AbstractController
 
         return $this->render('backoffice/facture/new.html.twig', [
             'facture' => $facture,
+            'company' => $company,
             'form' => $form,
             'theme' => $theme,
         ]);
@@ -62,6 +64,7 @@ class FactureController extends AbstractController
 
         return $this->render('backoffice/facture/show.html.twig', [
             'facture' => $facture,
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -85,6 +88,7 @@ class FactureController extends AbstractController
 
         return $this->render('backoffice/facture/edit.html.twig', [
             'facture' => $facture,
+            'company' => $company,
             'form' => $form,
             'theme' => $theme,
         ]);

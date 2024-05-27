@@ -6,24 +6,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ClientsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Clients;
 use App\Entity\Company;
 use App\Entity\User;
 use App\Form\ClientsFormType;
+use Knp\Component\Pager\PaginatorInterface;
 
 class ClientsController extends AbstractController
 {
     #[Route('dashboard/clients', name: 'app_clients')]
-    public function index(): Response
+    public function index(ClientsRepository $clientsRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
         $clients = $company->getClients();
         $theme = $user ? $user->getTheme() : 'original';
 
+        // Pagination
+        $queryBuilder = $clientsRepository->createQueryBuilder('c');
+        $pagination = $paginator->paginate(
+            $queryBuilder, // Requête pour les données
+            $request->query->getInt('page', 1), // Numéro de page
+            8 // Limite par page
+        );
+
         return $this->render('backoffice/clients/index.html.twig', [
+            'company' => $company,
             'clients' => $clients,
+            'clients' => $pagination,
             'theme' => $theme,
         ]);
     }
@@ -50,6 +62,7 @@ class ClientsController extends AbstractController
 
         return $this->render('backoffice/clients/create.html.twig', [
             'clientForm' => $form->createView(),
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -69,6 +82,7 @@ class ClientsController extends AbstractController
 
         return $this->render('backoffice/clients/view.html.twig', [
             'client' => $client,
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -97,6 +111,7 @@ class ClientsController extends AbstractController
 
         return $this->render('backoffice/clients/edit.html.twig', [
             'clientForm' => $form->createView(),
+            'company' => $company,
             'theme' => $theme,
         ]);
     }

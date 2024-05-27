@@ -22,6 +22,7 @@ class ProduitController extends AbstractController
 
         return $this->render('backoffice/produit/index.html.twig', [
             'produits' => $produitRepository->findAll(),
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -47,6 +48,7 @@ class ProduitController extends AbstractController
         return $this->render('backoffice/produit/new.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -60,6 +62,7 @@ class ProduitController extends AbstractController
 
         return $this->render('backoffice/produit/show.html.twig', [
             'produit' => $produit,
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -83,6 +86,7 @@ class ProduitController extends AbstractController
         return $this->render('backoffice/produit/edit.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'company' => $company,
             'theme' => $theme,
         ]);
     }

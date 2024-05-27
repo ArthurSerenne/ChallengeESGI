@@ -9,23 +9,23 @@
                 <h1 class="pb-4 text-4xl font-bold mb-6">Liste des clients <i class="fa-solid fa-users"></i></h1>
                 <a href="{{ path('app_clients_create') }}">Ajouter un Client <i class="fa-solid fa-plus"></i></a>
                 <table class="min-w-full border-collapse mt-8">
-                    <thead>
+                    <thead class="">
                         <tr class="bg-gray-100">
-                            <th class="border border-gray-300 p-4 text-left">Nom</th>
-                            <th class="border border-gray-300 p-4 text-left">Prénom</th>
-                            <th class="border border-gray-300 p-4 text-left">Email</th>
-                            <th class="border border-gray-300 p-4 text-left">Téléphone</th>
-                            <th class="border border-gray-300 p-4 text-left">Actions</th>
+                            <th class="p-4 text-left">Nom</th>
+                            <th class="p-4 text-left">Prénom</th>
+                            <th class="p-4 text-left">Email</th>
+                            <th class="p-4 text-left">Téléphone</th>
+                            <th class="p-4 text-left">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for clients in clients %}
                             <tr>
-                                <td class="border border-gray-300 p-4 text-left">{{ clients.Name }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{{ clients.lastname }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{{ clients.email }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{{ clients.phone }}</td>
-                                <td class="border border-gray-300 p-4 text-left flex justify-around">
+                                <td class="border-y p-4 text-left">{{ clients.Name }}</td>
+                                <td class="border-y p-4 text-left">{{ clients.lastname }}</td>
+                                <td class="border-y p-4 text-left">{{ clients.email }}</td>
+                                <td class="border-y p-4 text-left">{{ clients.phone }}</td>
+                                <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_clients_view', {id: clients.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_clients_edit', {id: clients.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <form method="post" action="{{ path('app_clients_delete', {id: clients.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer ce client ?');">
@@ -37,6 +37,32 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <!-- Pagination -->
+                <div class="flex justify-center mt-6">
+                    <nav class="relative z-0 inline-flex shadow-sm -space-x-px" aria-label="Pagination">
+                        {% if clients.currentPageNumber > 1 %}
+                            <a href="{{ path('app_clients', {page: clients.currentPageNumber - 1}) }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M12.707 14.707a1 1 0 01-1.414 0L7 10.414 10.586 7l4.293 4.293a1 1 0 010 1.414l-4.293 4.293z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        {% endif %}
+                        {% for i in 1..clients.paginationData.pageCount %}
+                            <a href="{{ path('app_clients', {page: i}) }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 {% if i == clients.currentPageNumber %}bg-gray-100{% endif %}">
+                                {{ i }}
+                            </a>
+                        {% endfor %}
+                        {% if clients.currentPageNumber < clients.paginationData.pageCount %}
+                            <a href="{{ path('app_clients', {page: clients.currentPageNumber + 1}) }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M7.293 5.293a1 1 0 011.414 0L13 9.586 9.414 13 5 8.707a1 1 0 010-1.414L9.414 5.293z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        {% endif %}
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
