@@ -80,6 +80,7 @@ class CompanyController extends AbstractController
 
         return $this->render('backoffice/salarie/comptable.html.twig', [
             'form' => $form->createView(),
+            'company' => $company,
             'theme' => $theme,
         ]);
     }

@@ -7,7 +7,7 @@
             <div class="{% if theme == 'turquoise' %}bg-lightblue-200{% elseif theme == 'grenade' %}bg-darkred-300{% else %}bg-primary-300{% endif %} rounded-md p-6 shadow-md shadow-black/5">
                 <div class="flex justify-between mb-6">
                     <div>
-                        <div class="text-2xl font-semibold mb-1">10</div>
+                        <div class="text-2xl font-semibold mb-1">{{ factureCount }}</div>
                         <div class="text-sm font-medium text-gray-600">Factures en cours</div>
                     </div>
                     <div class="dropdown">
@@ -73,7 +73,7 @@
             <div class="{% if theme == 'turquoise' %}bg-lightblue-200{% elseif theme == 'grenade' %}bg-darkred-300{% else %}bg-primary-300{% endif %} rounded-md p-6 shadow-md shadow-black/5">
                 <div class="flex justify-between mb-6">
                     <div>
-                        <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&euro;</span>2,345</div>
+                        <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&euro;</span>{{ totalCout }}</div>
                         <div class="text-sm font-medium text-gray-600">Montant total des factures</div>
                     </div>
                 </div>

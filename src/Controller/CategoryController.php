@@ -22,6 +22,7 @@ class CategoryController extends AbstractController
 
         return $this->render('backoffice/category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -47,6 +48,7 @@ class CategoryController extends AbstractController
 
         return $this->render('backoffice/category/new.html.twig', [
             'category' => $category,
+            'company' => $company,
             'form' => $form,
             'theme' => $theme,
         ]);
@@ -61,6 +63,7 @@ class CategoryController extends AbstractController
 
         return $this->render('backoffice/category/show.html.twig', [
             'category' => $category,
+            'company' => $company,
             'theme' => $theme,
         ]);
     }
@@ -83,6 +86,7 @@ class CategoryController extends AbstractController
 
         return $this->render('backoffice/category/edit.html.twig', [
             'category' => $category,
+            'company' => $company,
             'form' => $form,
             'theme' => $theme,
         ]);
