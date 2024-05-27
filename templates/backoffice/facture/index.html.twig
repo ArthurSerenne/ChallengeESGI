@@ -13,7 +13,7 @@
                         <tr class="bg-gray-100">
                             <th class="border border-gray-300 p-4 text-left">Id</th>
                             <th class="border border-gray-300 p-4 text-left">Date</th>
-                            <th class="border border-gray-300 p-4 text-left">Coût total</th>
+                            <th class="border border-gray-300 p-4 text-left">Produit</th>
                             <th class="border border-gray-300 p-4 text-left">Actions</th>
                         </tr>
                     </thead>
@@ -22,7 +22,9 @@
                             <tr>
                                 <td class="border border-gray-300 p-4 text-left">{{ facture.id }}</td>
                                 <td class="border border-gray-300 p-4 text-left">{{ facture.date ? facture.date|date('Y-m-d H:i:s') : '' }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{{ facture.coutTotal }}</td>
+                                <td class="border border-gray-300 p-4 text-left">{% for produit in facture.produits %}
+                            {{ produit.nom }}
+                        {% endfor %}</td>
                                 <td class="border border-gray-300 p-4 text-left flex justify-around">
                                     <a href="{{ path('app_facture_show', {'id': facture.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_facture_edit', {'id': facture.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
