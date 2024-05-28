@@ -11,21 +11,21 @@
                 <table class="min-w-full border-collapse mt-8">
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="border border-gray-300 p-4 text-left">Id</th>
-                            <th class="border border-gray-300 p-4 text-left">Date</th>
-                            <th class="border border-gray-300 p-4 text-left">Produit</th>
-                            <th class="border border-gray-300 p-4 text-left">Actions</th>
+                            <th class="p-4 text-left">Id</th>
+                            <th class="p-4 text-left">Date</th>
+                            <th class="p-4 text-left">Produit</th>
+                            <th class="p-4 text-left">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for facture in factures %}
                             <tr>
-                                <td class="border border-gray-300 p-4 text-left">{{ facture.id }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{{ facture.date ? facture.date|date('Y-m-d H:i:s') : '' }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{% for produit in facture.produits %}
+                                <td class="border-y p-4 text-left">{{ facture.id }}</td>
+                                <td class="border-y p-4 text-left">{{ facture.date ? facture.date|date('Y-m-d H:i:s') : '' }}</td>
+                                <td class="border-y p-4 text-left">{% for produit in facture.produits %}
                             {{ produit.nom }}
                         {% endfor %}</td>
-                                <td class="border border-gray-300 p-4 text-left flex justify-around">
+                                <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_facture_show', {'id': facture.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_facture_edit', {'id': facture.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <form method="post" action="{{ path('app_clients_delete', {id: facture.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer ce client ?');">

@@ -30,6 +30,10 @@ class Produit
     #[ORM\ManyToMany(targetEntity: Facture::class, mappedBy: 'produits')]
     private Collection $factures;
 
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->factures = new ArrayCollection();
@@ -99,6 +103,18 @@ class Produit
         if ($this->factures->removeElement($facture)) {
             $facture->removeProduit($this);
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
