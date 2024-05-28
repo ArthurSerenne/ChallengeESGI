@@ -25,7 +25,7 @@ class ComptableType extends AbstractType
                     'Male' => 'm',
                     'Female' => 'f',
                 ],
-                'placeholder' => 'Choose your gender',
+                'placeholder' => 'Choisissez votre genre',
                 'required' => true,
             ]);
     }

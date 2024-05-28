@@ -15,16 +15,16 @@ class ClientsFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Name',
+                'label' => 'Nom',
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'LastName',
+                'label' => 'Prénom',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'Addresse Email',
             ])
             ->add('phone', TextType::class, [
-                'label' => 'Phone',
+                'label' => 'Téléphone',
             ])
         ;
     }

@@ -11,19 +11,21 @@
                 <table class="min-w-full border-collapse mt-8">
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="border border-gray-300 p-4 text-left">Nom</th>
-                            <th class="border border-gray-300 p-4 text-left">Prix</th>
-                            <th class="border border-gray-300 p-4 text-left">Description</th>
-                            <th class="border border-gray-300 p-4 text-left">Actions</th>
+                            <th class="p-4 text-left">Produit</th>
+                            <th class="p-4 text-left">Prix unitaire</th>
+                            <th class="p-4 text-left">Description</th>
+                            <th class="p-4 text-left">Catégorie</th>
+                            <th class="p-4 text-left">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for produit in produits %}
                             <tr>
-                                <td class="border border-gray-300 p-4 text-left">{{ produit.nom }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{{ produit.prix }}</td>
-                                <td class="border border-gray-300 p-4 text-left">{{ produit.description }}</td>
-                                <td class="border border-gray-300 p-4 text-left flex justify-around">
+                                <td class="border-y p-4 text-left">{{ produit.nom }}</td>
+                                <td class="border-y p-4 text-left">{{ produit.prix }}</td>
+                                <td class="border-y p-4 text-left">{{ produit.description }}</td>
+                                <td class="border-y p-4 text-left">{{ produit.category ? produit.category.category : 'Sans catégorie' }}</td>
+                                <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_produit_show', {'id': produit.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <form method="post" action="{{ path('app_produit_delete', {id: produit.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer ce produit ?');">
