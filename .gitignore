@@ -34,3 +34,6 @@ yarn-error.log
 # Other files and folders
 .htaccess
 /public/images
+
+# Clé git
+my_public_key.asc
