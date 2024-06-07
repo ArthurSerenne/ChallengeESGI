@@ -1,17 +1,72 @@
 {% extends 'backoffice/base.html.twig' %}
 
+{% block title %}Salarié{% endblock %}
+
 {% block body %}
     <div class="p-6">
         <div class="mb-6 pl-64">
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                 <h1 class="pb-4 text-4xl font-bold mb-6">Créer un nouveau comptable</h1>
                 {{ form_start(form) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.password) }}
-                    {{ form_row(form.firstName) }}
-                    {{ form_row(form.lastName) }}
-                    <button class="btn">Créer</button>
+                <div class="col-span-1">
+                    {{ form_label(form.email, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.email, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.password, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.password, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.password, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.firstName, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.firstName, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.firstName, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.lastName, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.lastName, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.lastName, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.gender, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.gender, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.gender, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div>
+                    <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}bg-lightblue-700{% elseif theme == 'grenade' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4 my-8" type="submit">
+                        Ajouter
+                    </button>
+                </div>
                 {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-4 text-4xl font-bold mb-6">Liste des comptables</h1>
+                <table class="min-w-full border-collapse mt-8">
+                    <thead class="">
+                        <tr class="bg-gray-100">
+                            <th class="p-4 text-left">Nom</th>
+                            <th class="p-4 text-left">Prénom</th>
+                            <th class="p-4 text-left">Email</th>
+                            <th class="p-4 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in user %}
+                            <tr>
+                                <td class="border-y p-4 text-left">{{ user.firstname }}</td>
+                                <td class="border-y p-4 text-left">{{ user.lastname }}</td>
+                                <td class="border-y p-4 text-left">{{ user.email }}</td>
+                                <td class="border-y p-4 text-left">{{ user.phone }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

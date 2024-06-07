@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Devis;
+use Dompdf\Options;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class FactureController extends AbstractController
 {
@@ -52,6 +55,36 @@ class FactureController extends AbstractController
             'form' => $form,
             'theme' => $theme,
         ]);
+    }
+
+    #[Route('/dashboard/devis/{id}/generate-facture', name: 'generate_facture_from_devis')]
+    public function generateFromDevis(Devis $devis, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        // Créer une nouvelle facture
+        $facture = new Facture();
+
+        $facture->setDateFacture(new \DateTime());
+
+        $facture->setDateEcheance(new \DateTime());
+
+        $facture->setStatutPaiement('en cours');
+
+        // Copier les champs du devis vers la facture
+        $facture->setClient($devis->getClient());
+        $facture->setTotalTTC($devis->getTotalTTC());
+        $facture->setDevis($devis); // Si vous souhaitez conserver la relation devis-facture
+
+        // Copier les autres champs nécessaires
+        $facture->setTotalHT($devis->getTotalHT());
+        $facture->setTotalTVA($devis->getTotalTVA());
+        $facture->setRemise($devis->getRemise());
+
+        // Sauvegarder la facture dans la base de données
+        $entityManager->persist($facture);
+        $entityManager->flush();
+
+        // Rediriger vers la page des factures (ou autre)
+        return $this->redirectToRoute('app_devis_index'); // Adapter la route selon vos besoins
     }
 
     #[Route('dashboard/facture/{id}', name: 'app_facture_show', methods: ['GET'])]
@@ -97,7 +130,7 @@ class FactureController extends AbstractController
     #[Route('dashboard/facture/{id}', name: 'app_facture_delete', methods: ['POST'])]
     public function delete(Request $request, Facture $facture, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$facture->getId(), $request->getPayload()->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $facture->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($facture);
             $entityManager->flush();
         }

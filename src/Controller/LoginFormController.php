@@ -46,10 +46,10 @@ class LoginFormController extends AbstractController
         }
 
         if (!$user->getCompany()) {
-            return $this->redirectToRoute('app_company');
+            return $this->redirectToRoute('app_dashboard');
         }
 
-        return $this->redirectToRoute('app_dashboard');
+        return $this->redirectToRoute('app_company');
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
