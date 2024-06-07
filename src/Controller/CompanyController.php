@@ -12,7 +12,7 @@ use App\Form\ComptableType;
 use App\Entity\User;
 use App\Form\CompanyFormType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
+use App\Repository\UserRepository;
 
 class CompanyController extends AbstractController
 {
@@ -51,8 +51,34 @@ class CompanyController extends AbstractController
         ]);
     }
 
+
+    #[Route('dashboard/company/{id}/edit', name: 'company_edit')]
+    public function edit(Request $request, Company $company, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
+        $form = $this->createForm(CompanyFormType::class, $company);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($company);
+            $em->flush();
+
+            return $this->redirectToRoute('app_dashboard');
+        }
+
+        return $this->render('backoffice/company/edit.html.twig', [
+            'form' => $form->createView(),
+            'company' => $company,
+            'theme' => $theme,
+        ]);
+    }
+
     #[Route('/dashboard/salarie', name: 'app_salarie')]
-    public function createComptable(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
+    public function createComptable(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher,  UserRepository $userRepository): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
@@ -80,6 +106,7 @@ class CompanyController extends AbstractController
 
         return $this->render('backoffice/salarie/comptable.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
             'company' => $company,
             'theme' => $theme,
         ]);

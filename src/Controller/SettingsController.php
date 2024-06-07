@@ -15,8 +15,12 @@ use App\Entity\User;
 class SettingsController extends AbstractController
 {
     #[Route('dashboard/settings', name: 'app_settings')]
-    public function settings(Request $request, EntityManagerInterface $entityManager, #[CurrentUser] User $user)
+    public function settings(Request $request, EntityManagerInterface $entityManager, #[CurrentUser] User $user, Security $security)
     {
+
+        $company = $user->getCompany();
+        $user = $security->getUser();
+        $theme = $user ? $user->getTheme() : 'principal';
 
         $form = $this->createForm(SettingsFormType::class, $user);
         $form->handleRequest($request);
@@ -25,7 +29,7 @@ class SettingsController extends AbstractController
 
             $theme = $form->get('theme')->getData();
             $user->setTheme($theme);
-            
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -34,6 +38,8 @@ class SettingsController extends AbstractController
 
         return $this->render('backoffice/settings/index.html.twig', [
             'form' => $form->createView(),
+            'company' => $company,
+            'theme' => $theme,
         ]);
     }
 }

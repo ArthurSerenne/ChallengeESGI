@@ -1,6 +1,6 @@
 {% extends 'backoffice/base.html.twig' %}
 
-{% block title %}Add New Client{% endblock %}
+{% block title %}Clients{% endblock %}
 
 {% block body %}
     <div class="p-6">
@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}bg-lightblue-700{% elseif theme == 'grenade' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4" type="submit">
-                        Ajouter
+                        Enregistrer
                     </button>
                 </div>
                 {{ form_end(clientForm) }}
