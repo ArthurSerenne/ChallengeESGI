@@ -16,6 +16,8 @@
     </head>
     <body>
         {% block body %}
+            {% include 'composants/titre.html.twig' with { 'title': 'Mon Titre', 'additional_classes': 'text-blue-500' } %}
+            <p class="font-assistant">Voici un exemple de contenu avec un titre stylisé et un paragraphe utilisant la police Assistant.</p>
         {% endblock %}
     </body>
 </html>

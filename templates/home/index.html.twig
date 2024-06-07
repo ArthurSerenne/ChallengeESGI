@@ -17,7 +17,7 @@
         </div>
         <div class="mx-auto flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 p-8 flex flex-col items-center ml-24 mt-56">
-                <h2 class="text-orange-500 text-8xl font-bold mb-10">GymVoice</h2>
+                {% include 'composants/titre.html.twig' with { 'title': 'GymVoice', 'additional_classes': 'text-orange-500 text-8xl font-bold mb-10' } %}
                 <button class="m-6 px-9 py-5 bg-black text-white rounded-lg hover:bg-primary-600 focus:outline-none transform scale-150">Créer un compte</button>
                 <p class="px-56 mt-4 text-center">Créez, envoyez et gérez vos devis et factures en ligne facilement avec GymVoice. GymVoice est le meilleur logiciel de facturation adapté aux entrepreneurs et aux petites entreprises de matériels de sport.</p>
             </div>
@@ -34,7 +34,7 @@
     <!-- Freemium section -->
     <div class="w-full mt-32">
         <div class="flex flex-col items-center mb-32">
-            <p class="text-5xl font-semibold">Évoluez avec GymVoice</p>
+            {% include 'composants/titre.html.twig' with { 'title': 'Évoluez avec GymVoice', 'additional_classes': 'text-5xl font-semibold mb-10' } %}
             <p class="mt-6 text-xl text-center font-light max-w-4xl mx-auto">
                 Créez et envoyez des factures gratuitement avec le logiciel de facturation GymVoice et upgradez à mesure que votre entreprise se développe. Optez pour un abonnement annuel et économisez jusqu’à 15 %, ou préférez un abonnement mensuel et bénéficiez d’un essai gratuit de 14 jours.
             </p>
@@ -104,7 +104,7 @@
     <!-- Avis clients Section -->
     <div class="w-full mt-56 mb-28">
         <div class="flex flex-col items-center mb-24">
-            <p class="text-5xl font-semibold">Nos avis clients</p>
+            {% include 'composants/titre.html.twig' with { 'title': 'Nos avis clients', 'additional_classes': 'text-5xl font-semibold mb-10' } %}
             <p class="mt-6 text-xl text-center font-light max-w-4xl mx-auto">
                 Créez et envoyez des factures gratuitement avec le logiciel de facturation GymVoice et upgradez à mesure que votre entreprise se développe. Optez pour un abonnement annuel et économisez jusqu’à 15 %, ou préférez un abonnement mensuel et bénéficiez d’un essai gratuit de 14 jours.
             </p>
