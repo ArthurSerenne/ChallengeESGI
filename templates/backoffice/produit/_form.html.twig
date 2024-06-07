@@ -4,8 +4,30 @@
                 <h1 class="pb-4">Nouveau Produit !</h1>
 
                 {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+                <div class="col-span-1">
+                    {{ form_label(form.nom, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.nom, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.nom, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.prix, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.prix, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.prix, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.description, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.description, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.category, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.category, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.category, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}bg-lightblue-700{% elseif theme == 'grenade' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4 my-8" type="submit">
+                    Enregistrer
+                </button>
+                
                 {{ form_end(form) }}
 
                 <a href="{{ path('app_produit_index') }}">Retour à la liste</a>

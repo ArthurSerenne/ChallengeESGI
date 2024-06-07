@@ -1,26 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SettingsController!{% endblock %}
+{% block title %}Paramètres{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<!-- start: Sidebar -->
+            <div class="fixed left-0 top-0 w-64 h-full {% if theme == 'turquoise' %}bg-lightblue-600{% elseif theme == 'grenade' %}bg-darkred-600{% else %}bg-primary-600{% endif %} p-4 z-50 sidebar-menu transition-transform">
+                <a href="#" class="flex items-center pb-4 border-b border-b-slate-200">
+                    <span class="text-2xl font-bold text-white ml-3">Paramètres <i class="fa-solid fa-gear pl-4"></i></span>
+                </a>
+                <ul class=" flex flex-col mt-4 h-full">
+                    <li class="mb-1 group active">
+                        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-[.active]:bg-lightblue-500 group-[.selected]:bg-lightblue-400{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-[.active]:bg-darkred-500 group-[.selected]:bg-darkred-400{% else %}hover:bg-primary-500 group-[.active]:bg-primary-500 group-[.selected]:bg-primary-400{% endif %}  hover:text-gray-100 rounded-md group-[.active]:text-white group-[.selected]:text-gray-100">
+                            <i class="ri-home-2-line mr-3 text-lg"></i>
+                            <span class="text-sm">Thème de couleur</span>
+                        </a>
+                    </li>
+                    <li class="mb-1 group active">
+                        <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-300   hover:text-gray-100 rounded-md group-[.active]:text-white group-[.selected]:text-gray-100">
+                            <i class="ri-home-2-line mr-3 text-lg"></i>
+                            <span class="text-sm">Retour au Dashboard <i class="fa-solid fa-arrow-right-from-bracket pl-2"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+            <!-- end: Sidebar -->
 
-    <div class="container mx-auto p-8">
-        <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
-            <h1 class="text-3xl font-bold text-gray-800 mb-6">Paramètres</h1>
-            <form method="post">
-                {{ form_start(form) }}
-                <div class="mb-4">
-                    {{ form_label(form.theme, 'Choisir la couleur du thème', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
-                    {{ form_widget(form.theme, {'attr': {'class': 'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
-                    {{ form_errors(form.theme) }}
+        <div class="p-6">
+            <div class="mb-6 pl-64">
+                <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                    <div class="flex flex-1">
+                        <div class="w-2/4 flex flex-col items-center">
+                            <h2 class="text-3xl font-bold mt-10">Choisissez la couleur de votre application</h2>
+                            <p class="mt-12 px-20 text-justify">Le choix du thème de couleur de notre application repose sur une volonté de créer une expérience utilisateur agréable et intuitive. Les teintes douces et apaisantes favorisent la concentration et réduisent la fatigue visuelle, tandis que les couleurs vives et contrastées sont utilisées pour attirer l'attention sur les éléments interactifs et les notifications importantes. Cette palette équilibrée vise à améliorer la lisibilité et à guider naturellement l'utilisateur à travers les différentes fonctionnalités de l'application.</p>
+                            {{ form_start(form, {'attr': {'class': 'w-full mt-16'}}) }}
+                                {{ form_widget(form.theme, {'attr': {'class': 'mt-1 w-4/5 ml-[10%] py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
+                                {{ form_errors(form.theme) }}
+                            <button type="submit" class="w-4/5 ml-[10%] mt-4 bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Enregistrer</button>
+                            {{ form_end(form) }}
+                        </div>
+                        <div class="w-2/4 flex flex-col">  
+                            <div class="mt-12 p-0">
+                                <img src="{{ asset('images/dashboard.png') }}" alt="" class="w-11/12 border">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Enregistrer</button>
-                {{ form_end(form) }}
-            </form>
+            </div>
         </div>
-    </div>
 {% endblock %}

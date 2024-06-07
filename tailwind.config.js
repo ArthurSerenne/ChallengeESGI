@@ -6,11 +6,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        lalezar: ['Lalezar', 'sans-serif'],
+        assistant: ['Assistant', 'sans-serif'],
+      },
       margin: {
         '1/4': '25%',
       },
-      colors : {
-        customColor : '#FF00EE',
+      colors: {
+        customColor: '#FF00EE',
         'primary': {
           '50': '#fffaec',
           '100': '#fff5d3',
@@ -36,7 +40,7 @@ module.exports = {
           '800': '#8c2828',
           '900': '#752727',
           '950': '#3f1010',
-        },   
+        },
         'lightblue': {
           '50': '#f2fbf8',
           '100': '#d1f6ec',
@@ -49,7 +53,7 @@ module.exports = {
           '800': '#1a554e',
           '900': '#1a4741',
           '950': '#092a27',
-        },  
+        },
         'base': {
           '50': '#f6f6f6',
           '100': '#e7e7e7',
