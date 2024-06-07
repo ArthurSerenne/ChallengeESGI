@@ -3,15 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Clients;
-use App\Entity\Facture;
-use App\Entity\Produit;
+use App\Entity\Devis;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class FactureType extends AbstractType
+class DevisType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -24,8 +23,8 @@ class FactureType extends AbstractType
                 'class' => Clients::class,
                 'choice_label' => 'name',
             ])
-            ->add('lignesFacture', CollectionType::class, [
-                'entry_type' => LigneFactureType::class,
+            ->add('lignesDevis', CollectionType::class, [
+                'entry_type' => LigneDevisType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'by_reference' => false,
@@ -38,7 +37,7 @@ class FactureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Facture::class,
+            'data_class' => Devis::class,
         ]);
     }
 }

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LigneFacture index{% endblock %}
+
+{% block body %}
+    <h1>LigneFacture index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantite</th>
+                <th>Prix_ht</th>
+                <th>Prix_ttc</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ligne_facture in ligne_factures %}
+            <tr>
+                <td>{{ ligne_facture.id }}</td>
+                <td>{{ ligne_facture.quantite }}</td>
+                <td>{{ ligne_facture.prixHt }}</td>
+                <td>{{ ligne_facture.prixTtc }}</td>
+                <td>
+                    <a href="{{ path('app_ligne_facture_show', {'id': ligne_facture.id}) }}">show</a>
+                    <a href="{{ path('app_ligne_facture_edit', {'id': ligne_facture.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ligne_facture_new') }}">Create new</a>
+{% endblock %}

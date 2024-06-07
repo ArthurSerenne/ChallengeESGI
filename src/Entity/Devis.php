@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use App\Controller\LigneFactureController;
-use App\Repository\FactureRepository;
+use App\Repository\DevisRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FactureRepository::class)]
-class Facture
+#[ORM\Entity(repositoryClass: DevisRepository::class)]
+class Devis
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +17,7 @@ class Facture
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_facture = null;
+    private ?\DateTimeInterface $date_devis = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $total_ht = null;
@@ -32,37 +31,31 @@ class Facture
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $remise = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_echeance = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $statut_paiement = null;
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Devis $devis = null;
-
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Clients $client = null;
 
-    #[ORM\OneToMany(targetEntity: LigneFacture::class, mappedBy: 'facture', cascade: ['persist', 'remove'])]
-    private $lignesFacture;
+    #[ORM\OneToMany(targetEntity: LigneDevis::class, mappedBy: 'devis', cascade: ['persist', 'remove'])]
+    private $lignesDevis;
 
+    public function __construct()
+    {
+        $this->lignesDevis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateFacture(): ?\DateTimeInterface
+    public function getDateDevis(): ?\DateTimeInterface
     {
-        return $this->date_facture;
+        return $this->date_devis;
     }
 
-    public function setDateFacture(\DateTimeInterface $date_facture): static
+    public function setDateDevis(\DateTimeInterface $date_devis): static
     {
-        $this->date_facture = $date_facture;
+        $this->date_devis = $date_devis;
 
         return $this;
     }
@@ -115,42 +108,6 @@ class Facture
         return $this;
     }
 
-    public function getDateEcheance(): ?\DateTimeInterface
-    {
-        return $this->date_echeance;
-    }
-
-    public function setDateEcheance(\DateTimeInterface $date_echeance): static
-    {
-        $this->date_echeance = $date_echeance;
-
-        return $this;
-    }
-
-    public function getStatutPaiement(): ?string
-    {
-        return $this->statut_paiement;
-    }
-
-    public function setStatutPaiement(string $statut_paiement): static
-    {
-        $this->statut_paiement = $statut_paiement;
-
-        return $this;
-    }
-
-    public function getDevis(): ?Devis
-    {
-        return $this->devis;
-    }
-
-    public function setDevis(?Devis $devis): static
-    {
-        $this->devis = $devis;
-
-        return $this;
-    }
-
     public function getClient(): ?Clients
     {
         return $this->client;
@@ -164,29 +121,29 @@ class Facture
     }
 
     /**
-     * @return Collection|LigneFacture[]
+     * @return Collection|LigneDevis[]
      */
-    public function getLignesFacture(): Collection
+    public function getLignesDevis(): Collection
     {
-        return $this->lignesFacture;
+        return $this->lignesDevis;
     }
 
-    public function addLignesFacture(LigneFacture $ligneFacture): self
+    public function addLignesDevi(LigneDevis $ligneDevis): self
     {
-        if (!$this->lignesFacture->contains($ligneFacture)) {
-            $this->lignesFacture[] = $ligneFacture;
-            $ligneFacture->setFacture($this);
+        if (!$this->lignesDevis->contains($ligneDevis)) {
+            $this->lignesDevis[] = $ligneDevis;
+            $ligneDevis->setDevis($this);
         }
 
         return $this;
     }
 
-    public function removeLignesFacture(LigneFacture $ligneFacture): self
+    public function removeLignesDevi(LigneDevis $ligneDevis): self
     {
-        if ($this->lignesFacture->removeElement($ligneFacture)) {
+        if ($this->lignesDevis->removeElement($ligneDevis)) {
             // set the owning side to null (unless already changed)
-            if ($ligneFacture->getFacture() === $this) {
-                $ligneFacture->setFacture(null);
+            if ($ligneDevis->getDevis() === $this) {
+                $ligneDevis->setDevis(null);
             }
         }
 

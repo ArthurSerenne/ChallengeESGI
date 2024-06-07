@@ -1,0 +1,30 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Entreprise{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-10 text-3xl font-bold">Modifier votre Entreprise ! </h1>
+                <form method="post">
+                {{ form_start(form) }}
+                    <div class="col-span-1">
+                    {{ form_label(form.name, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.name, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(form.siret, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(form.siret, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(form.siret, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                    <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}bg-lightblue-700{% elseif theme == 'grenade' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4 my-8" type="submit">
+                        Enregistrer
+                    </button>
+                {{ form_end(form) }}
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
