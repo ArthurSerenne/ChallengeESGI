@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Devis;
 use Dompdf\Options;
+use Dompdf\Dompdf;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class FactureController extends AbstractController
@@ -136,5 +137,37 @@ class FactureController extends AbstractController
         }
 
         return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/generate-pdf', name: 'app_generate_pdf')]
+    public function generatePdf(): Response
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('backoffice/pdf/pdf.html.twig', [
+            'title' => "Welcome to our PDF Test"
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);   
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
+
+        return new Response("The PDF has been generated", 200);
     }
 }
