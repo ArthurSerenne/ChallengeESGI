@@ -8,8 +8,9 @@
     <!-- start: Sidebar -->
     <div class="fixed left-0 top-0 w-1/4 h-full bg-white p-4 z-50 sidebar-menu transition-transform">
         <a href="/">
-            <h2 class="text-orange-500 text-5xl font-bold my-10 text-center">GymVoice</h2>
-        </a>  
+    {% include 'composants/titre.html.twig' with { 'title': 'GymVoice', 'additional_classes': 'text-orange-500 text-5xl font-bold my-10 text-center' } %}
+        </a>
+ 
         <p class="text-center mx-10">Votre web app qui vous permet de gérer vos facture de manière simple </p>
 
         <div class="mt-28 text-center">

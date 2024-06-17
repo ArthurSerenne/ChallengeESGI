@@ -39,6 +39,11 @@ class Produit
         $this->factures = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->nom; // Ajustez cela selon les champs disponibles dans votre entité Client
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LigneDevis index{% endblock %}
+
+{% block body %}
+    <h1>LigneDevis index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantite</th>
+                <th>Prix_ht</th>
+                <th>Prix_ttc</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ligne_devi in ligne_devis %}
+            <tr>
+                <td>{{ ligne_devi.id }}</td>
+                <td>{{ ligne_devi.quantite }}</td>
+                <td>{{ ligne_devi.prixHt }}</td>
+                <td>{{ ligne_devi.prixTtc }}</td>
+                <td>
+                    <a href="{{ path('app_ligne_devis_show', {'id': ligne_devi.id}) }}">show</a>
+                    <a href="{{ path('app_ligne_devis_edit', {'id': ligne_devi.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ligne_devis_new') }}">Create new</a>
+{% endblock %}

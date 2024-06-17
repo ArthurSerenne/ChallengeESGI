@@ -38,9 +38,9 @@ class DashBoardController extends AbstractController
         $factures = $factureRepository->findAll();
         $totalCout = 0.0;
 
-        foreach ($factures as $facture) {
-            $totalCout += $facture->getCoutTotal();
-        }
+        // foreach ($factures as $facture) {
+        //     $totalCout += $facture->getCoutTotal();
+        // }
 
         return $this->render('backoffice/dashboard.html.twig', [
             'company' => $company,

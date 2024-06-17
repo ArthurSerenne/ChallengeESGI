@@ -29,6 +29,11 @@ class Clients
     #[ORM\JoinColumn(nullable: false)]
     private ?Company $company = null;
 
+    public function __toString()
+    {
+        return $this->name . ' ' . $this->lastname; // Ajustez cela selon les champs disponibles dans votre entité Client
+    }
+
     public function getId(): ?int
     {
         return $this->id;

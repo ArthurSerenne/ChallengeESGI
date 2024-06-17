@@ -1,0 +1,102 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Devis{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+            {{ form_start(form) }}
+                <div class="w-full h-full">
+                    <div class="flex flex-col h-full">
+                        <div class="flex flex-1">
+                            <div class="w-2/4 flex flex-col items-center justify-center ">
+                                <img src="{{ asset('images/Gymvoice.png') }}" alt="sportif" class="w-2/6 my-8">
+                                <div class="text-black text-xl bg-primary-600 font-bold px-6 py-2 mb-8">TRAIN YOURSELF TO BE PERFECT</div>
+                            </div>
+                            <div class="w-2/4 flex flex-col items-center justify-center ">  
+                                <div class="text-black text-8xl font-bold mb-10">DEVIS</div>
+                                <div class="text-black">
+                                    <div class="flex flex-col">
+                                        {{ form_row(form.client, {'attr': {'class': 'block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-1/2 w-full my-12 flex justify-center items-center ">
+                            <table class="w-11/12 mx-4 border-collapse mt-8">
+                                <thead>
+                                    <tr>
+                                        <th class="p-6  text-left text-white bg-black font-bold">PRODUIT</th>
+                                        <th class="p-4 text-left text-white bg-black">QUANTITÉ</th>
+                                        <th class="p-4 text-left text-white bg-black">PRIX HT</th>
+                                        <th class="p-4 text-left text-black bg-primary-600">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lignesDevis" data-prototype="{{ form_widget(form.lignesDevis.vars.prototype)|e('html') }}">
+                                    {% for ligne in form.lignesDevis %}
+                                        <tr>
+                                            <td class="border-y border-black p-4 text-left">{{ form_row(ligne.produit) }}</td>
+                                            <td class="border-y border-black p-4 text-left">{{ form_row(ligne.quantite) }}</td>
+                                            <td class="border-y border-black p-4 text-left">{{ form_row(ligne.prixHT) }}€</td>
+                                            <td class="border-y border-black p-4 text-left">{{ form_row(ligne.prixTTC) }}€</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <th class="p-6 text-left text-black bg-[#ededed] font-bold">
+                                        <button type="button" id="add-ligne">AJOUTER UN PRODUIT</button>
+                                    </th>
+                                    <th class="bg-[#ededed]"></th>
+                                    <th class="bg-[#ededed]"></th>
+                                    <th class="bg-[#ededed]"></th>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="flex flex-1 mt-16 bg-primary bg-primary-600">
+                            <div class="w-2/5 flex flex-col items-center justify-center my-16">
+                                <div class="text-black font-bold text-4xl px-6">TERMS and CONDITION</div>
+                                <div class="text-black text-center px-4">Lorem ipsum dolor sit amer, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut</div>
+                            </div>
+                            <div class="w-3/5 flex flex-col items-center justify-center my-16 ">
+                                <div class="text-black">
+                                    <p>
+                                        {{ form_row(form.total_ht, {
+                                            'attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'widget_attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm'}
+                                        }) }}
+                                    </p>
+                                    <p>
+                                        {{ form_row(form.total_tva, {
+                                            'attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'widget_attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm'}
+                                        }) }}
+                                    </p>
+                                    <p>
+                                        {{ form_row(form.remise, {
+                                            'attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'widget_attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm'}
+                                        }) }}
+                                    </p>
+                                    <hr class="w-full border-t border-black my-2">
+                                    <p>
+                                        {{ form_row(form.total_ttc, {
+                                            'attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-700'},
+                                            'widget_attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm'}
+                                        }) }}
+                                    </p>
+                                    <button class="btn">Enregistrer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
