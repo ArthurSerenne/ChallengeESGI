@@ -15,4 +15,10 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    #[Route('/testfacture', name: 'test_facture')]
+    public function testfacture(): Response
+    {
+        return $this->render('testfacture/facture.html.twig', [
+        ]);
+    }
 }

@@ -31,7 +31,7 @@
                 <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                     <div class="flex flex-1">
                         <div class="w-2/4 flex flex-col items-center">
-                            <h2 class="text-3xl font-bold mt-10">Choisissez la couleur de votre application</h2>
+                            {% include 'composants/titre.html.twig' with { 'title': 'Choisissez la couleur de l\'application', 'additional_classes': 'text-4xl font-bold mb-10' } %}
                             <p class="mt-12 px-20 text-justify">Le choix du thème de couleur de notre application repose sur une volonté de créer une expérience utilisateur agréable et intuitive. Les teintes douces et apaisantes favorisent la concentration et réduisent la fatigue visuelle, tandis que les couleurs vives et contrastées sont utilisées pour attirer l'attention sur les éléments interactifs et les notifications importantes. Cette palette équilibrée vise à améliorer la lisibilité et à guider naturellement l'utilisateur à travers les différentes fonctionnalités de l'application.</p>
                             {{ form_start(form, {'attr': {'class': 'w-full mt-16'}}) }}
                                 {{ form_widget(form.theme, {'attr': {'class': 'mt-1 w-4/5 ml-[10%] py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}

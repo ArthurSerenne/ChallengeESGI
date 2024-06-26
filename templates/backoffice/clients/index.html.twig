@@ -6,7 +6,7 @@
     <div class="p-6">
         <div class="mb-6 pl-64">
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
-                <h1 class="pb-4 text-4xl font-bold mb-6">Liste des clients <i class="fa-solid fa-users"></i></h1>
+                {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Clients'} %}
                 <a href="{{ path('app_clients_create') }}">Ajouter un Client <i class="fa-solid fa-plus"></i></a>
                 <table class="min-w-full border-collapse mt-8">
                     <thead class="">

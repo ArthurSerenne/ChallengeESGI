@@ -1,0 +1,17 @@
+<?php
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class TestFactureController extends AbstractController
+{
+    #[Route('/testfacture', name: 'test_facture')]
+    public function index(): Response
+    {
+        return $this->render('testfacture/facture.html.twig', [
+            'controller_name' => 'TestFactureController',
+        ]);
+    }
+}

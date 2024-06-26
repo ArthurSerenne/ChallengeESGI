@@ -45,7 +45,7 @@ class LoginFormController extends AbstractController
             return $this->redirectToRoute('app_dashboard');
         }
 
-        if (!$user->getCompany()) {
+        if ($user->getCompany()) {
             return $this->redirectToRoute('app_dashboard');
         }
 
