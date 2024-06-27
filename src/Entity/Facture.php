@@ -49,6 +49,10 @@ class Facture
     #[ORM\OneToMany(targetEntity: LigneFacture::class, mappedBy: 'facture', cascade: ['persist', 'remove'])]
     private $lignesFacture;
 
+    public function __construct()
+    {
+        $this->lignesFacture = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Facture;
+use App\Entity\LigneFacture;
 use App\Form\FactureType;
 use App\Repository\FactureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,20 +66,31 @@ class FactureController extends AbstractController
         $facture = new Facture();
 
         $facture->setDateFacture(new \DateTime());
-
         $facture->setDateEcheance(new \DateTime());
-
         $facture->setStatutPaiement('en cours');
 
         // Copier les champs du devis vers la facture
         $facture->setClient($devis->getClient());
         $facture->setTotalTTC($devis->getTotalTTC());
-        $facture->setDevis($devis); // Si vous souhaitez conserver la relation devis-facture
-
-        // Copier les autres champs nécessaires
+        $facture->setDevis($devis);
         $facture->setTotalHT($devis->getTotalHT());
         $facture->setTotalTVA($devis->getTotalTVA());
         $facture->setRemise($devis->getRemise());
+
+        foreach ($devis->getLignesDevis() as $ligneDevis) {
+            $ligneFacture = new LigneFacture();
+            $ligneFacture->setFacture($facture);
+            $ligneFacture->setProduit($ligneDevis->getProduit());
+            $ligneFacture->setQuantite($ligneDevis->getQuantite());
+            $ligneFacture->setPrixHt($ligneDevis->getPrixHt());
+            $ligneFacture->setPrixTtc($ligneDevis->getPrixTtc());
+    
+            // Ajouter la ligne de facture à la facture
+            $facture->addLignesFacture($ligneFacture);
+    
+            // Sauvegarder la ligne de facture dans la base de données
+            $entityManager->persist($ligneFacture);
+        }
 
         // Sauvegarder la facture dans la base de données
         $entityManager->persist($facture);
@@ -139,19 +151,28 @@ class FactureController extends AbstractController
         return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/generate-pdf', name: 'app_generate_pdf')]
-    public function generatePdf(): Response
+    #[Route('/generate-pdf/{id}', name: 'app_generate_pdf')]
+    public function generatePdf(EntityManagerInterface $entityManager, int $id): Response
     {
+        // Retrieve the invoice by its id
+        $facture = $entityManager->getRepository(Facture::class)->find($id);
+
+        if (!$facture) {
+            throw $this->createNotFoundException('Aucune facture trouvée pour l\'id ' . $id);
+        }
+
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
 
         // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
+        $dompdf = new Dompdf();
 
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('backoffice/pdf/pdf.html.twig', [
-            'title' => "Welcome to our PDF Test"
+            'facture' => $facture,
+            'client' => $facture->getClient(),
+            'lignesFacture' => $facture->getLignesFacture(),
         ]);
 
         // Load HTML to Dompdf
@@ -164,7 +185,7 @@ class FactureController extends AbstractController
         $dompdf->render();
 
         // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
+        $dompdf->stream("facture-{$facture->getId()}.pdf", [
             "Attachment" => true
         ]);
 

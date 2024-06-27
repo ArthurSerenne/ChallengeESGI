@@ -26,6 +26,18 @@ class ClientsFormType extends AbstractType
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
             ])
+            ->add('Adresse', TextType::class, [
+                'label' => 'Adresse',
+            ])
+            ->add('CodePostal', TextType::class, [
+                'label' => 'Code Postal',
+            ])
+            ->add('Ville', TextType::class, [
+                'label' => 'Ville',
+            ])
+            ->add('Pays', TextType::class, [
+                'label' => 'Pays',
+            ])
         ;
     }
 

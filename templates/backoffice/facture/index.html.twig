@@ -24,11 +24,11 @@
                                 <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_facture_show', {'id': facture.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_facture_edit', {'id': facture.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form method="post" action="{{ path('app_clients_delete', {id: facture.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer ce client ?');">
+                                    <form method="post" action="{{ path('app_facture_delete', {id: facture.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer cette facture ?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ facture.id) }}">
                                         <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
                                     </form>
-                                    <form action="{{ path('app_generate_pdf') }}" method="get">
+                                    <form action="{{ path('app_generate_pdf', { 'id': facture.id }) }}" method="get">
                                         <button type="submit"><i class="fa-regular fa-file-pdf"></i></button>
                                     </form>
                                 </td>

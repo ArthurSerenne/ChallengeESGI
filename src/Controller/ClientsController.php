@@ -49,6 +49,8 @@ class ClientsController extends AbstractController
         $theme = $user ? $user->getTheme() : 'original';
 
         $client = new Clients();
+
+        $client->setCreatedAt(new \DateTime());
         $form = $this->createForm(ClientsFormType::class, $client);
         $form->handleRequest($request);
 
