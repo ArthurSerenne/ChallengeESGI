@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\FactureRepository;
 use App\Repository\UserRepository;
 use App\Form\ClientsFormType;
+use App\Repository\ClientsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\SettingsFormType;
 use App\Entity\Company;
@@ -22,7 +23,7 @@ class DashBoardController extends AbstractController
 {
 
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(#[CurrentUser] User $user, EntityManagerInterface $entityManager, FactureRepository $factureRepository, Security $security): Response
+    public function dashboard(#[CurrentUser] User $user, EntityManagerInterface $entityManager, FactureRepository $factureRepository,ClientsRepository $clientsRepository, Security $security): Response
     {
         $company = $user->getCompany();
         $user = $security->getUser();
@@ -38,11 +39,8 @@ class DashBoardController extends AbstractController
         $factures = $factureRepository->findAll();
         $totalCout = 0.0;
 
-        // foreach ($factures as $facture) {
-        //     $totalCout += $facture->getCoutTotal();
-        // }
-
         return $this->render('backoffice/dashboard.html.twig', [
+            'factures' => $factureRepository->findAll(),
             'company' => $company,
             'user' => $user,
             'theme' => $theme,
