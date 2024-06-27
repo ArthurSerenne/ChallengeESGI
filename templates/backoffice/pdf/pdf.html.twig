@@ -1,4 +1,4 @@
-<div class="w-full h-full">
+{# <div class="w-full h-full">
     <div class="flex flex-col h-full">
         <div class="flex flex-1">
             <div class="w-2/4 flex flex-col items-center justify-center ">
@@ -66,5 +66,136 @@
                 </div>
             </div>
         </div>
+    </div>
+</div> #}
+
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .terms {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .terms p {
+            margin: 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+<div class="container">
+    <div class="header">
+        {# <img src="{{ asset('images/Gymvoice.png') }}" alt="logo" width="100" height="100"> #}
+        <div class="title">TRAIN YOURSELF TO BE PERFECT</div>
+    </div>
+    
+    <h1 style="text-align: center; font-size: 32px; margin-bottom: 40px;">DEVIS</h1>
+    
+    <table>
+        <tr>
+            <td><strong>Client</strong></td>
+            <td>{{ client.name }}</td>
+        </tr>
+    </table>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>PRODUIT</th>
+                <th>QUANTITÉ</th>
+                <th>PRIX HT</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody id="lignesDevis">
+            {% for ligne in lignesFacture %}
+                <tr>
+                    <td>{{ ligne.produit.nom }}</td>
+                    <td>{{ ligne.quantite }}</td>
+                    <td>{{ ligne.prixHT }}€</td>
+                    <td>{{ ligne.prixTTC }}€</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="terms">
+        <h2>TERMS and CONDITIONS</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+
+    <table>
+        <tr>
+            <td>Total HT</td>
+            <td>{{ facture.getTotalHt() }}€</td>
+        </tr>
+        <tr>
+            <td>Total TVA</td>
+            <td>{{ facture.getTotalTva() }}€</td>
+        </tr>
+        <tr>
+            <td>Remise</td>
+            <td>{{ facture.getRemise() }}€</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr style="border-top: 1px solid #000;">
+            </td>
+        </tr>
+        <tr>
+            <td>Total TTC</td>
+            <td>{{ facture.getTotalTtc() }}€</td>
+        </tr>
+    </table>
+
+    <div class="footer">
+        <button style="padding: 10px 20px; background-color: #4CAF50; color: #fff; border: none; border-radius: 4px;">Enregistrer</button>
     </div>
 </div>
