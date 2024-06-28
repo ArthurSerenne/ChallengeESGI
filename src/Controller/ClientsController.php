@@ -21,24 +21,38 @@ class ClientsController extends AbstractController
     {
         $user = $this->getUser();
         $company = $user->getCompany();
-        $clients = $company->getClients();
         $theme = $user ? $user->getTheme() : 'original';
-
+    
+        // Récupérer le terme de recherche depuis la requête
+        $searchTerm = $request->query->get('q');
+    
+        // Récupérer les clients en fonction du terme de recherche
+        $clientsQuery = $clientsRepository->createQueryBuilder('c')
+            ->where('c.company = :company')
+            ->setParameter('company', $company);
+    
+        if ($searchTerm) {
+            $clientsQuery->andWhere('c.name LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+    
+        $queryBuilder = $clientsQuery->getQuery();
+    
         // Pagination
-        $queryBuilder = $clientsRepository->createQueryBuilder('c');
         $pagination = $paginator->paginate(
-            $queryBuilder, // Requête pour les données
+            $queryBuilder,
             $request->query->getInt('page', 1), // Numéro de page
             8 // Limite par page
         );
-
+    
         return $this->render('backoffice/clients/index.html.twig', [
             'company' => $company,
-            'clients' => $clients,
             'clients' => $pagination,
             'theme' => $theme,
+            'searchTerm' => $searchTerm, // Passer le terme de recherche à Twig
         ]);
     }
+    
 
     
     #[Route('dashboard/clients/new', name: 'app_clients_create')]

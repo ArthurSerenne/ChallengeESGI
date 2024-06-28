@@ -1,3 +1,4 @@
+{# templates/backoffice/clients/index.html.twig #}
 {% extends 'backoffice/base.html.twig' %}
 
 {% block title %}Clients{% endblock %}
@@ -7,7 +8,12 @@
         <div class="mb-6 pl-64">
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                 {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Clients'} %}
+                
+                {# Barre de recherche intégrée #}
+                {% include 'composants/recherche.html.twig' with {'searchTerm': searchTerm ?? ''} %}
+
                 <a href="{{ path('app_clients_create') }}">Ajouter un Client <i class="fa-solid fa-plus"></i></a>
+
                 <table class="min-w-full border-collapse mt-8">
                     <thead class="">
                         <tr class="bg-gray-100">
@@ -19,17 +25,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for clients in clients %}
+                        {% for client in clients %}
                             <tr>
-                                <td class="border-y p-4 text-left">{{ clients.Name }}</td>
-                                <td class="border-y p-4 text-left">{{ clients.lastname }}</td>
-                                <td class="border-y p-4 text-left">{{ clients.email }}</td>
-                                <td class="border-y p-4 text-left">{{ clients.phone }}</td>
+                                <td class="border-y p-4 text-left">{{ client.name }}</td>
+                                <td class="border-y p-4 text-left">{{ client.lastname }}</td>
+                                <td class="border-y p-4 text-left">{{ client.email }}</td>
+                                <td class="border-y p-4 text-left">{{ client.phone }}</td>
                                 <td class="border-y p-4 text-left flex justify-around">
-                                    <a href="{{ path('app_clients_view', {id: clients.id}) }}"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="{{ path('app_clients_edit', {id: clients.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form method="post" action="{{ path('app_clients_delete', {id: clients.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer ce client ?');">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ clients.id) }}">
+                                    <a href="{{ path('app_clients_view', {id: client.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ path('app_clients_edit', {id: client.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <form method="post" action="{{ path('app_clients_delete', {id: client.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
                                         <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
                                     </form>
                                 </td>
@@ -37,6 +43,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                
                 <!-- Pagination -->
                 <div class="flex justify-center mt-6">
                     <nav class="relative z-0 inline-flex shadow-sm -space-x-px" aria-label="Pagination">
