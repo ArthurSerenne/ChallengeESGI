@@ -19,7 +19,11 @@ public function index(ProduitRepository $produitRepository, Request $request): R
     $searchTerm = $request->query->get('q');
     
     if ($searchTerm) {
-        $produits = $produitRepository->findBy(['nom' => $searchTerm]);
+        $produits = $produitRepository->createQueryBuilder('p')
+            ->where('LOWER(p.nom) LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
+            ->getQuery()
+            ->getResult();
     } else {
         $produits = $produitRepository->findAll();
     }
@@ -35,7 +39,6 @@ public function index(ProduitRepository $produitRepository, Request $request): R
         'searchTerm' => $searchTerm,
     ]);
 }
-
     #[Route('dashboard/produit/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
