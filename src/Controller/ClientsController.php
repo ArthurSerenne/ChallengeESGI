@@ -32,7 +32,7 @@ class ClientsController extends AbstractController
             ->setParameter('company', $company);
     
         if ($searchTerm) {
-            $clientsQuery->andWhere('c.name LIKE :searchTerm')
+            $clientsQuery->andWhere('LOWER(c.name) LIKE :searchTerm')
                 ->setParameter('searchTerm', '%' . $searchTerm . '%');
         }
     

@@ -13,19 +13,28 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProduitController extends AbstractController
 {
-    #[Route('dashboard/produit', name: 'app_produit_index', methods: ['GET'])]
-    public function index(ProduitRepository $produitRepository): Response
-    {
-        $user = $this->getUser();
-        $company = $user->getCompany();
-        $theme = $user ? $user->getTheme() : 'original';
-
-        return $this->render('backoffice/produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
-            'company' => $company,
-            'theme' => $theme,
-        ]);
+#[Route('dashboard/produit', name: 'app_produit_index', methods: ['GET'])]
+public function index(ProduitRepository $produitRepository, Request $request): Response
+{
+    $searchTerm = $request->query->get('q');
+    
+    if ($searchTerm) {
+        $produits = $produitRepository->findBy(['nom' => $searchTerm]);
+    } else {
+        $produits = $produitRepository->findAll();
     }
+
+    $user = $this->getUser();
+    $company = $user->getCompany();
+    $theme = $user ? $user->getTheme() : 'original';
+
+    return $this->render('backoffice/produit/index.html.twig', [
+        'produits' => $produits,
+        'company' => $company,
+        'theme' => $theme,
+        'searchTerm' => $searchTerm,
+    ]);
+}
 
     #[Route('dashboard/produit/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
