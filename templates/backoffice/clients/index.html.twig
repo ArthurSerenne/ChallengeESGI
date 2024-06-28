@@ -8,8 +8,6 @@
         <div class="mb-6 pl-64">
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                 {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Clients'} %}
-                
-                {# Barre de recherche intégrée #}
                 {% include 'composants/recherche.html.twig' with {'searchTerm': searchTerm ?? ''} %}
 
                 <a href="{{ path('app_clients_create') }}">Ajouter un Client <i class="fa-solid fa-plus"></i></a>

@@ -14,16 +14,29 @@ use Symfony\Component\Routing\Attribute\Route;
 class CategoryController extends AbstractController
 {
     #[Route('dashboard/category', name: 'app_category_index', methods: ['GET'])]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CategoryRepository $categoryRepository, Request $request): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
         $theme = $user ? $user->getTheme() : 'original';
 
+        $searchTerm = $request->query->get('q');
+    
+    if ($searchTerm) {
+        $categories = $categoryRepository->createQueryBuilder('c')
+            ->where('LOWER(c.Category) LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
+            ->getQuery()
+            ->getResult();
+    } else {
+        $categories = $categoryRepository->findAll();
+    }
+
         return $this->render('backoffice/category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $categories,
             'company' => $company,
             'theme' => $theme,
+            'searchTerm' => $searchTerm,
         ]);
     }
 
