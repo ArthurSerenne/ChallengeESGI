@@ -1,0 +1,23 @@
+{
+  "entrypoints": {
+    "app_css": {
+      "js": [
+        "/build/runtime.js",
+        "/build/app_css.js"
+      ],
+      "css": [
+        "/build/assets_styles_app_css-assets_styles_app_css-assets_styles_app_css.css"
+      ]
+    },
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-ee365a.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/assets_styles_app_css-assets_styles_app_css-assets_styles_app_css.css"
+      ]
+    }
+  }
+}

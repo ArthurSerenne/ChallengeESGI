@@ -1,7 +1,6 @@
 
 ###> symfony/framework-bundle ###
 /config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -12,7 +11,6 @@ docker-compose.override.yml
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
-/public/build/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
@@ -27,4 +25,3 @@ yarn-error.log
 
 # Other files and folders
 .htaccess
-/public/images
