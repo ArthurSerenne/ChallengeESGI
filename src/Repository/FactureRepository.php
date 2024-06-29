@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Facture;
+use App\Entity\Company;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,7 +16,18 @@ class FactureRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Facture::class);
     }
-
+    
+     // Méthode pour calculer le total TTC des factures d'une entreprise
+     public function getTotalTTCByCompany(Company $company): float
+     {
+         return (float) $this->createQueryBuilder('f')
+             ->select('SUM(f.total_ttc)')
+             ->where('f.company = :company')
+             ->setParameter('company', $company)
+             ->getQuery()
+             ->getSingleScalarResult();
+     }
+     
     //    /**
     //     * @return Facture[] Returns an array of Facture objects
     //     */

@@ -21,7 +21,7 @@ class ClientsFormType extends AbstractType
                 'label' => 'Prénom',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Addresse Email',
+                'label' => 'Adresse Email',
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
