@@ -19,7 +19,9 @@
                             <th class="p-4 text-left">Prénom</th>
                             <th class="p-4 text-left">Email</th>
                             <th class="p-4 text-left">Téléphone</th>
-                            <th class="p-4 text-left">Actions</th>
+                            {% if not is_granted('ROLE_COMPTABLE') %}
+                                <th class="p-4 text-left">Actions</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
