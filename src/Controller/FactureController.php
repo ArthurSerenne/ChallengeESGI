@@ -31,7 +31,6 @@ class FactureController extends AbstractController
 
         return $this->render('backoffice/facture/index.html.twig', [
             'factures' => $facture,
-            'factures' => $factures,
             'company' => $company,
             'theme' => $theme,
             'order' => $order,
