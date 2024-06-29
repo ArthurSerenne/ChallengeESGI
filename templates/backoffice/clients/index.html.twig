@@ -9,8 +9,10 @@
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                 {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Clients'} %}
                 {% include 'composants/recherche.html.twig' with {'searchTerm': searchTerm ?? ''} %}
-
+               
+                {% if not is_granted('ROLE_COMPTABLE') %}
                 <a href="{{ path('app_clients_create') }}">Ajouter un Client <i class="fa-solid fa-plus"></i></a>
+                {% endif %}
 
                 <table class="min-w-full border-collapse mt-8">
                     <thead class="">
