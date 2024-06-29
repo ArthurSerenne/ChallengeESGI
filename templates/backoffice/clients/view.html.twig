@@ -10,7 +10,11 @@
                 <p class="p-4 font-bold">Nom: {{ client.name }}</p>
                 <p class="p-4 font-bold">Prénom: {{ client.lastname }}</p>
                 <p class="p-4 font-bold">Email: {{ client.email }}</p>
-                <p class="p-4 font-bold mb-6">Téléphone: {{ client.phone }}</p>
+                <p class="p-4 font-bold">Téléphone: {{ client.phone }}</p>
+                <p class="p-4 font-bold">Adresse: {{ client.Adresse }}</p>
+                <p class="p-4 font-bold">Code Postal: {{ client.CodePostal }}</p>
+                <p class="p-4 font-bold">Ville: {{ client.Ville }}</p>
+                <p class="p-4 font-bold mb-6">Pays: {{ client.Pays }}</p>
                 <a class="" href="{{ path('app_clients') }}">
                     <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}hover:bg-lightblue-700{% elseif theme == 'grenade' %}hover:bg-darkred-700{% else %}hover:bg-primary-700{% endif %} text-white font-bold py-2 px-4">
                         Retour à la liste

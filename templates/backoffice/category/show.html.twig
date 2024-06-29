@@ -7,8 +7,8 @@
         <div class="mb-6 pl-64">
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                 <h1 class="pb-4 text-4xl font-bold mb-6">Catégorie : {{ category.Category }} </h1>
-                <p class="p-4 font-bold">Id : {{ category.id }}</p>
                 <p class="p-4 font-bold">Nom : {{ category.Category }}</p>
+                <p class="p-4 font-bold">Description : {{ category.description }}</p>
                 <a class="" href="{{ path('app_category_index') }}">
                     <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}hover:bg-lightblue-700{% elseif theme == 'grenade' %}hover:bg-darkred-700{% else %}hover:bg-primary-700{% endif %} text-white font-bold py-2 px-4">
                         Retour à la liste

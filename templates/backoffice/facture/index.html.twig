@@ -11,9 +11,12 @@
                 <table class="min-w-full border-collapse mt-8">
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="p-4 text-left">Id</th>
-                            <th class="p-4 text-left">Date</th>
-                            <th class="p-4 text-left">Actions</th>
+                            <th class="p-4 text-left">N°</th>
+                            <th class="p-4 text-left">Date de création</th>
+                            <th class="p-4 text-left">Client</th>
+                            <th class="p-4 text-left">Total TTC</th>
+                            <th class="p-4 text-left">Status</th>
+                            <th class="p-4 text-left">actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +24,12 @@
                             <tr>
                                 <td class="border-y p-4 text-left">{{ facture.id }}</td>
                                 <td class="border-y p-4 text-left">{{ facture.dateFacture ? facture.dateFacture|date('Y-m-d H:i:s') : '' }}</td>
+                                <td class="border-y p-4 text-left">{{ facture.client.name }}</td>
+                                <td class="border-y p-4 text-left">{{ facture.totalTtc }}€</td>
+                                <td class="border-y p-4 text-left">
+                                    <span class="p-1 rounded bg-emerald-500/10 text-emerald-500 font-medium text-[12px] leading-none">{{ facture.StatutPaiement }}</span>
+                                </td>
+
                                 <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_facture_show', {'id': facture.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_facture_edit', {'id': facture.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>

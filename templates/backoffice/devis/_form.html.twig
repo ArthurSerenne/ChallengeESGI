@@ -1,4 +1,29 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="col-span-1">
+        {{ form_label(form.total_ht, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+        {{ form_widget(form.total_ht, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+        {{ form_errors(form.total_ht, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+    </div>
+    <div class="col-span-1">
+        {{ form_label(form.total_ttc, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+        {{ form_widget(form.total_ttc, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+        {{ form_errors(form.total_ttc, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+    </div>
+    <div class="col-span-1">
+        {{ form_label(form.total_tva, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+        {{ form_widget(form.total_tva, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+        {{ form_errors(form.total_tva, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+    </div>
+    <div class="col-span-1">
+        {{ form_label(form.remise, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+        {{ form_widget(form.remise, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+        {{ form_errors(form.remise, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+    </div>
+    <div class="col-span-1">
+        {{ form_label(form.client, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+        {{ form_widget(form.client, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+        {{ form_errors(form.client, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+    </div>
+   
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

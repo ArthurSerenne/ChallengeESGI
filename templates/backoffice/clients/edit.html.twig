@@ -29,6 +29,26 @@
                     {{ form_widget(clientForm.phone, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
                     {{ form_errors(clientForm.phone, {'attr': {'class': 'text-red-600 text-sm'}}) }}
                 </div>
+                <div class="col-span-1">
+                    {{ form_label(clientForm.Adresse, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.Adresse, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.Adresse, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(clientForm.CodePostal, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.CodePostal, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.CodePostal, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(clientForm.Ville, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.Ville, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.Ville, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(clientForm.Pays, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(clientForm.Pays, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(clientForm.Pays, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
                 <div>
                     <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}bg-lightblue-700{% elseif theme == 'grenade' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4" type="submit">
                         Enregistrer

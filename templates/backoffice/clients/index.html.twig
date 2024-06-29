@@ -6,7 +6,7 @@
 {% block body %}
     <div class="p-6">
         <div class="mb-6 pl-64">
-            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+            <div class="w-full bg-white dark:bg-[#4E5A63] rounded-md border border-gray-100 dark:border-[#4E5A63] p-4 shadow-md shadow-black/5">
                 {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Clients'} %}
                 
                 {# Barre de recherche intégrée #}
@@ -16,7 +16,7 @@
 
                 <table class="min-w-full border-collapse mt-8">
                     <thead class="">
-                        <tr class="bg-gray-100">
+                        <tr class="bg-gray-100 dark:bg-[#3A434A] dark:text-white">
                             <th class="p-4 text-left">Nom</th>
                             <th class="p-4 text-left">Prénom</th>
                             <th class="p-4 text-left">Email</th>
@@ -27,11 +27,11 @@
                     <tbody>
                         {% for client in clients %}
                             <tr>
-                                <td class="border-y p-4 text-left">{{ client.name }}</td>
-                                <td class="border-y p-4 text-left">{{ client.lastname }}</td>
-                                <td class="border-y p-4 text-left">{{ client.email }}</td>
-                                <td class="border-y p-4 text-left">{{ client.phone }}</td>
-                                <td class="border-y p-4 text-left flex justify-around">
+                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.name }}</td>
+                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.lastname }}</td>
+                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.email }}</td>
+                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.phone }}</td>
+                                <td class="border-y dark:border-y-black p-4 text-left flex justify-around">
                                     <a href="{{ path('app_clients_view', {id: client.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_clients_edit', {id: client.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <form method="post" action="{{ path('app_clients_delete', {id: client.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">

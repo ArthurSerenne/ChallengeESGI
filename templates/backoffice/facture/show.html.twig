@@ -6,16 +6,63 @@
     <div class="p-6">
         <div class="mb-6 pl-64">
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
-                <h1 class="pb-4 text-4xl font-bold mb-6">Facture : {{ facture.id }} </h1>
-                <p class="p-4 font-bold">Id : {{ facture.id }}</p>
-                <p class="p-4 font-bold">Date : {{ {{ facture.date ? facture.date|date('Y-m-d H:i:s') : '' }} }}</p>
-                <p class="p-4 font-bold">Coût : {{ facture.coutTotal }}</p>
-                <p class="p-4 font-bold mb-6">Téléphone: {{ client.phone }}</p>                
-                <a class="" href="{{ path('app_facture_index') }}">
-                    <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}hover:bg-lightblue-700{% elseif theme == 'grenade' %}hover:bg-darkred-700{% else %}hover:bg-primary-700{% endif %} text-white font-bold py-2 px-4">
-                        Retour à la liste
-                    </button>
-                </a>
+                <div class="w-full h-full">
+                    <div class="flex flex-col h-full">
+                        <div class="flex flex-1">
+                            <div class="w-2/4 flex flex-col items-center justify-center ">
+                                <img src="{{ asset('images/Gymvoice.png') }}" alt="sportif" class="w-2/6 my-8">
+                                <div class="text-black text-xl bg-primary-600 font-bold px-6 py-2 mb-8">TRAIN YOURSELF TO BE PERFECT</div>
+                            </div>
+                            <div class="w-2/4 flex flex-col items-center justify-center ">  
+                                <div class="text-black text-8xl font-bold mb-10">FACTURE</div>
+                                <div class="text-black text-xl font-bold mb-10">Facture numéro °{{ facture.id }}</div>
+                                <div class="text-black">
+                                    <div class="flex flex-col">
+                                        {{ facture.client }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-1/2 w-full my-12 flex justify-center items-center ">
+                            <table class="w-11/12 mx-4 border-collapse mt-8">
+                                <thead>
+                                    <tr>
+                                        <th class="p-6  text-left text-white bg-black font-bold">PRODUIT</th>
+                                        <th class="p-4 text-left text-white bg-black">QUANTITÉ</th>
+                                        <th class="p-4 text-left text-white bg-black">PRIX HT</th>
+                                        <th class="p-4 text-left text-black bg-primary-600">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lignesDevis">
+                                    <tr>
+                                        {% for ligne in facture.lignesFacture %}
+                                        <tr>
+                                            <td class="border-y border-black p-4 text-left">{{ ligne.produit }}</td>
+                                            <td class="border-y border-black p-4 text-left">{{ ligne.quantite }}</td>
+                                            <td class="border-y border-black p-4 text-left">{{ ligne.prixHT }}€</td>
+                                            <td class="border-y border-black p-4 text-left">{{ ligne.prixTTC }}€</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="flex flex-1 mt-16 bg-primary bg-primary-600">
+                            <div class="w-2/5 flex flex-col items-center justify-center my-16">
+                                <div class="text-black font-bold text-4xl px-6">TERMS and CONDITION</div>
+                                <div class="text-black text-center px-4">Lorem ipsum dolor sit amer, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut</div>
+                            </div>
+                            <div class="w-3/5 flex flex-col items-center justify-center my-16 ">
+                                <div class="text-black">
+                                    <p>Total HT : {{ facture.totalHT }}€</p>
+                                    <p>Total TVA : {{ facture.totalTVA }}€</p>
+                                    <p>Total Remise : {{ facture.remise }}€</p>
+                                    <p>Total TTC : {{ facture.totalTTC }}€</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
