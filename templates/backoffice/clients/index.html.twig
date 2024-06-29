@@ -8,11 +8,11 @@
         <div class="mb-6 pl-64">
             <div class="w-full bg-white dark:bg-[#4E5A63] rounded-md border border-gray-100 dark:border-[#4E5A63] p-4 shadow-md shadow-black/5">
                 {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Clients'} %}
-                
-                {# Barre de recherche intégrée #}
                 {% include 'composants/recherche.html.twig' with {'searchTerm': searchTerm ?? ''} %}
-
+               
+                {% if not is_granted('ROLE_COMPTABLE') %}
                 <a href="{{ path('app_clients_create') }}">Ajouter un Client <i class="fa-solid fa-plus"></i></a>
+                {% endif %}
 
                 <table class="min-w-full border-collapse mt-8">
                     <thead class="">
@@ -21,7 +21,9 @@
                             <th class="p-4 text-left">Prénom</th>
                             <th class="p-4 text-left">Email</th>
                             <th class="p-4 text-left">Téléphone</th>
-                            <th class="p-4 text-left">Actions</th>
+                            {% if not is_granted('ROLE_COMPTABLE') %}
+                                <th class="p-4 text-left">Actions</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>

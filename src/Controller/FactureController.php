@@ -19,17 +19,22 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class FactureController extends AbstractController
 {
     #[Route('dashboard/facture', name: 'app_facture_index', methods: ['GET'])]
-    public function index(FactureRepository $factureRepository): Response
+    public function index(Request $request, FactureRepository $factureRepository): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
         $facture = $company->getFacture();
         $theme = $user ? $user->getTheme() : 'original';
 
+        $order = $request->query->get('order', 'asc'); // Default order is ascending
+        $factures = $factureRepository->findBy([], ['date_facture' => $order]);
+
         return $this->render('backoffice/facture/index.html.twig', [
             'factures' => $facture,
+            'factures' => $factures,
             'company' => $company,
             'theme' => $theme,
+            'order' => $order,
         ]);
     }
 

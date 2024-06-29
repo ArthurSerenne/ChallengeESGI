@@ -14,17 +14,21 @@ use Symfony\Component\Routing\Attribute\Route;
 class DevisController extends AbstractController
 {
     #[Route('dashboard/devis', name: 'app_devis_index', methods: ['GET'])]
-    public function index(DevisRepository $devisRepository): Response
+    public function index(Request $request, DevisRepository $devisRepository): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
         $devis = $company->getDevis();
         $theme = $user ? $user->getTheme() : 'original';
 
+        $order = $request->query->get('order', 'asc'); // Default order is ascending
+        $devis = $devisRepository->findBy([], ['date_devis' => $order]);
+
         return $this->render('backoffice/devis/index.html.twig', [
             'devis' => $devis,
             'theme' => $theme,
             'company' => $company,
+            'order' => $order,
         ]);
     }
 
@@ -135,4 +139,6 @@ class DevisController extends AbstractController
 
         return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
 }

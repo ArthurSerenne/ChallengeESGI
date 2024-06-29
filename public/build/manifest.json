@@ -3,7 +3,5 @@
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
   "build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-ee365a.js": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-ee365a.js",
-  "build/assets_styles_app_css-assets_styles_app_css-assets_styles_app_css.css": "/build/assets_styles_app_css-assets_styles_app_css-assets_styles_app_css.css",
-  "build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-181957.js": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-181957.js",
-  "build/vendors-node_modules_core-js_modules_es_array_push_js-node_modules_core-js_modules_es_date_to-067c99.js": "/build/vendors-node_modules_core-js_modules_es_array_push_js-node_modules_core-js_modules_es_date_to-067c99.js"
+  "build/assets_styles_app_css-assets_styles_app_css-assets_styles_app_css.css": "/build/assets_styles_app_css-assets_styles_app_css-assets_styles_app_css.css"
 }
