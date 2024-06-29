@@ -7,12 +7,22 @@
         <div class="mb-6 pl-64">
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                 {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Factures'} %}
+                {% include 'composants/recherche.html.twig' with {'searchTerm': searchTerm ?? ''} %}
                 {# <a href="{{ path('app_facture_new') }}">Créer une Facture<i class="fa-solid fa-plus"></i></a> #}
                 <table class="min-w-full border-collapse mt-8">
                     <thead>
                         <tr class="bg-gray-100">
                             <th class="p-4 text-left">Id</th>
-                            <th class="p-4 text-left">Date</th>
+                            <th class="p-4 text-left">
+                                <a href="{{ path('app_facture_index', {'order': order == 'asc' ? 'desc' : 'asc'}) }}">
+                                    Date
+                                    {% if order == 'asc' %}
+                                        <i class="fa-solid fa-arrow-up"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-arrow-down"></i>
+                                    {% endif %}
+                                </a>
+                            </th>
                             <th class="p-4 text-left">Actions</th>
                         </tr>
                     </thead>
