@@ -30,9 +30,37 @@ class Company
     #[ORM\OneToMany(targetEntity: Clients::class, mappedBy: 'company')]
     private Collection $clients;
 
+     /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Category::class)]
+    private Collection $category;
+
+    /**
+     * @var Collection<int, Product>
+     */
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Produit::class)]
+    private Collection $produit;
+
+    /**
+     * @var Collection<int, Invoice>
+     */
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Devis::class)]
+    private Collection $devis;
+
+    /**
+     * @var Collection<int, Quote>
+     */
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Facture::class)]
+    private Collection $facture;
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();
+        $this->category = new ArrayCollection();
+        $this->produit = new ArrayCollection();
+        $this->devis = new ArrayCollection();
+        $this->facture = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,6 +128,126 @@ class Company
             // set the owning side to null (unless already changed)
             if ($client->getCompany() === $this) {
                 $client->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+     /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->category->contains($category)) {
+            $this->category->add($category);
+            $category->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        if ($this->category->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getCompany() === $this) {
+                $category->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProduit(): Collection
+    {
+        return $this->produit;
+    }
+
+    public function addProduit(Produit $produit): static
+    {
+        if (!$this->produit->contains($produit)) {
+            $this->produit->add($produit);
+            $produit->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): static
+    {
+        if ($this->produit->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getCompany() === $this) {
+                $produit->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Invoice>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevis(Devis $devis): static
+    {
+        if (!$this->devis->contains($devis)) {
+            $this->devis->add($devis);
+            $devis->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevis(Devis $devis): static
+    {
+        if ($this->devis->removeElement($devis)) {
+            // set the owning side to null (unless already changed)
+            if ($devis->getCompany() === $this) {
+                $devis->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quote>
+     */
+    public function getFacture(): Collection
+    {
+        return $this->facture;
+    }
+
+    public function addFacture(Facture $facture): static
+    {
+        if (!$this->facture->contains($facture)) {
+            $this->facture->add($facture);
+            $facture->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): static
+    {
+        if ($this->facture->removeElement($facture)) {
+            // set the owning side to null (unless already changed)
+            if ($facture->getCompany() === $this) {
+                $facture->setCompany(null);
             }
         }
 

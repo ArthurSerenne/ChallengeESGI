@@ -35,6 +35,10 @@ class Devis
     #[ORM\JoinColumn(nullable: false)]
     private ?Clients $client = null;
 
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Company $company = null;
+
     #[ORM\OneToMany(targetEntity: LigneDevis::class, mappedBy: 'devis', cascade: ['persist', 'remove'])]
     private $lignesDevis;
 
@@ -146,6 +150,18 @@ class Devis
                 $ligneDevis->setDevis(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): static
+    {
+        $this->company = $company;
 
         return $this;
     }

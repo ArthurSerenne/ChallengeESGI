@@ -23,10 +23,11 @@ class FactureController extends AbstractController
     {
         $user = $this->getUser();
         $company = $user->getCompany();
+        $facture = $company->getFacture();
         $theme = $user ? $user->getTheme() : 'original';
 
         return $this->render('backoffice/facture/index.html.twig', [
-            'factures' => $factureRepository->findAll(),
+            'factures' => $facture,
             'company' => $company,
             'theme' => $theme,
         ]);
@@ -62,6 +63,9 @@ class FactureController extends AbstractController
     #[Route('/dashboard/devis/{id}/generate-facture', name: 'generate_facture_from_devis')]
     public function generateFromDevis(Devis $devis, EntityManagerInterface $entityManager): RedirectResponse
     {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+
         // Créer une nouvelle facture
         $facture = new Facture();
 
@@ -93,6 +97,7 @@ class FactureController extends AbstractController
         }
 
         // Sauvegarder la facture dans la base de données
+        $facture->setCompany($company);
         $entityManager->persist($facture);
         $entityManager->flush();
 

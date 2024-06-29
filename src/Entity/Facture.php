@@ -46,6 +46,10 @@ class Facture
     #[ORM\JoinColumn(nullable: false)]
     private ?Clients $client = null;
 
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Company $company = null;
+
     #[ORM\OneToMany(targetEntity: LigneFacture::class, mappedBy: 'facture', cascade: ['persist', 'remove'])]
     private $lignesFacture;
 
@@ -193,6 +197,18 @@ class Facture
                 $ligneFacture->setFacture(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): static
+    {
+        $this->company = $company;
 
         return $this;
     }

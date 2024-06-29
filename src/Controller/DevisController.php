@@ -18,10 +18,11 @@ class DevisController extends AbstractController
     {
         $user = $this->getUser();
         $company = $user->getCompany();
+        $devis = $company->getDevis();
         $theme = $user ? $user->getTheme() : 'original';
 
         return $this->render('backoffice/devis/index.html.twig', [
-            'devis' => $devisRepository->findAll(),
+            'devis' => $devis,
             'theme' => $theme,
             'company' => $company,
         ]);
@@ -71,6 +72,7 @@ class DevisController extends AbstractController
             $devis->setTotalTVA($totalTVA); // Assuming TVA is the difference between TTC and HT
             $devis->setRemise($remise);
 
+            $devis->setCompany($company);
             $entityManager->persist($devis);
             $entityManager->flush();
 

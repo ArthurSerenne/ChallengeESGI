@@ -18,10 +18,11 @@ class ProduitController extends AbstractController
     {
         $user = $this->getUser();
         $company = $user->getCompany();
+        $produit = $company->getProduit();
         $theme = $user ? $user->getTheme() : 'original';
 
         return $this->render('backoffice/produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produit,
             'company' => $company,
             'theme' => $theme,
         ]);
@@ -39,6 +40,7 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $produit->setCompany($company);
             $entityManager->persist($produit);
             $entityManager->flush();
 
@@ -94,9 +96,17 @@ class ProduitController extends AbstractController
     #[Route('dashboard/produit/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($produit);
-            $entityManager->flush();
+        // Vérifiez si le token CSRF est valide
+        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+            try {
+                $entityManager->remove($produit);
+                $entityManager->flush();
+                $this->addFlash('success', 'Le produit a été supprimé avec succès.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Impossible de supprimer ce produit, celui-ci est utilisé dans un devis.');
+            }
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide.');
         }
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);

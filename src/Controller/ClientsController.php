@@ -21,6 +21,7 @@ class ClientsController extends AbstractController
     {
         $user = $this->getUser();
         $company = $user->getCompany();
+        $clients = $company->getClients();
         $theme = $user ? $user->getTheme() : 'original';
     
         // Récupérer le terme de recherche depuis la requête
@@ -47,6 +48,7 @@ class ClientsController extends AbstractController
     
         return $this->render('backoffice/clients/index.html.twig', [
             'company' => $company,
+            'clients' => $clients,
             'clients' => $pagination,
             'theme' => $theme,
             'searchTerm' => $searchTerm, // Passer le terme de recherche à Twig

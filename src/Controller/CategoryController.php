@@ -18,10 +18,11 @@ class CategoryController extends AbstractController
     {
         $user = $this->getUser();
         $company = $user->getCompany();
+        $category = $company->getCategories();
         $theme = $user ? $user->getTheme() : 'original';
 
         return $this->render('backoffice/category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $category,
             'company' => $company,
             'theme' => $theme,
         ]);
@@ -40,6 +41,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setCompany($company);
             $entityManager->persist($category);
             $entityManager->flush();
 
@@ -95,9 +97,16 @@ class CategoryController extends AbstractController
     #[Route('dashboard/category/{id}', name: 'app_category_delete', methods: ['POST'])]
     public function delete(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($category);
-            $entityManager->flush();
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+            try {
+                $entityManager->remove($category);
+                $entityManager->flush();
+                $this->addFlash('success', 'La catégorie a été supprimée avec succès.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Impossible de supprimer cette catégorie car elle contient des produits.');
+            }
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide.');
         }
 
         return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);
