@@ -134,21 +134,33 @@ class ClientsController extends AbstractController
         ]);
     }
 
-    #[Route('dashboard/clients/{id}/delete', name: 'app_clients_delete')]
-    public function delete(int $id, EntityManagerInterface $entityManager): Response
+    #[Route('dashboard/clients/{id}/delete', name: 'app_clients_delete', methods: ['POST'])]
+    public function delete(int $id, EntityManagerInterface $entityManager, Request $request, Clients $client): Response
     {
-        $user = $this->getUser();
-        $company = $user->getCompany();
-        $theme = $user ? $user->getTheme() : 'original';
+        // $user = $this->getUser();
+        // $company = $user->getCompany();
+        // $theme = $user ? $user->getTheme() : 'original';
         
-        $client = $entityManager->getRepository(Clients::class)->find($id);
+        // $client = $entityManager->getRepository(Clients::class)->find($id);
 
-        if (!$client) {
-            throw $this->createNotFoundException('Aucun client trouvé !!');
+        // if (!$client) {
+        //     throw $this->createNotFoundException('Aucun client trouvé !!');
+        // }
+
+        // $entityManager->remove($client);
+        // $entityManager->flush();
+
+        if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
+            try {
+                $entityManager->remove($client);
+                $entityManager->flush();
+                $this->addFlash('success', 'Le client a été supprimé avec succès.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Impossible de supprimer ce client car il est rataché à un/plusieurs devis.');
+            }
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide.');
         }
-
-        $entityManager->remove($client);
-        $entityManager->flush();
 
         return $this->redirectToRoute('app_clients');
     }

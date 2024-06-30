@@ -14,15 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProduitController extends AbstractController
 {
     #[Route('dashboard/produit', name: 'app_produit_index', methods: ['GET'])]
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(Request $request, ProduitRepository $produitRepository): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
         $produit = $company->getProduit();
         $theme = $user ? $user->getTheme() : 'original';
-#[Route('dashboard/produit', name: 'app_produit_index', methods: ['GET'])]
-public function index(ProduitRepository $produitRepository, Request $request): Response
-{
+
     $searchTerm = $request->query->get('q');
     
     if ($searchTerm) {
@@ -35,19 +33,9 @@ public function index(ProduitRepository $produitRepository, Request $request): R
         $produits = $produitRepository->findAll();
     }
 
-    $user = $this->getUser();
-    $company = $user->getCompany();
-    $theme = $user ? $user->getTheme() : 'original';
-
-        return $this->render('backoffice/produit/index.html.twig', [
-            'produits' => $produit,
-            'company' => $company,
-            'theme' => $theme,
-        ]);
-    }
-
     return $this->render('backoffice/produit/index.html.twig', [
         'produits' => $produits,
+        'produits' => $produit,
         'company' => $company,
         'theme' => $theme,
         'searchTerm' => $searchTerm,
@@ -128,7 +116,7 @@ public function index(ProduitRepository $produitRepository, Request $request): R
                 $entityManager->flush();
                 $this->addFlash('success', 'Le produit a été supprimé avec succès.');
             } catch (\Exception $e) {
-                $this->addFlash('error', 'Impossible de supprimer ce produit, celui-ci est utilisé dans un devis.');
+                $this->addFlash('error', 'Impossible de supprimer ce produit, celui-ci est utilisé dans un/plusieurs devis.');
             }
         } else {
             $this->addFlash('error', 'Token CSRF invalide.');

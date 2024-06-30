@@ -5,6 +5,19 @@
 {% block body %}
     <div class="p-6">
         <div class="mb-6 pl-64">
+
+         {% for message in app.flashes('success') %}
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <span class="block sm:inline">{{ message }}</span>
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <span class="block sm:inline">{{ message }}</span>
+                </div>
+            {% endfor %}
+
             <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
                 {% include 'composants/titredashboard.html.twig' with { 'title': 'Liste des Devis'} %}
                 {% include 'composants/recherche.html.twig' with {'searchTerm': searchTerm ?? ''} %}
@@ -15,7 +28,7 @@
                             <th class="p-4 text-left">Id</th>
                                                         <th class="p-4 text-left">
                                 <a href="{{ path('app_devis_index', {'order': order == 'asc' ? 'desc' : 'asc'}) }}">
-                                    Date_devis
+                                    Date devis
                                     {% if order == 'asc' %}
                                         <i class="fa-solid fa-arrow-up"></i>
                                     {% else %}
@@ -23,10 +36,8 @@
                                     {% endif %}
                                 </a>
                             </th>
-                            <th class="p-4 text-left">Total_ht</th>
-                            <th class="p-4 text-left">Total_ttc</th>
-                            <th class="p-4 text-left">Total_tva</th>
-                            <th class="p-4 text-left">Remise</th>
+                            <th class="p-4 text-left">Client</th>
+                            <th class="p-4 text-left">Total TTC</th>
                             <th class="p-4 text-left">actions</th>
                         </tr>
                     </thead>
@@ -37,12 +48,10 @@
                                 <td class="border-y p-4 text-left">{{ devis.dateDevis ? devis.dateDevis|date('Y-m-d H:i:s') : '' }}</td>
                                 <td class="border-y p-4 text-left">{{ devis.client.name }}</td>
                                 <td class="border-y p-4 text-left">{{ devis.totalTtc }}€</td>
-                                <td class="border-y p-4 text-left"></td>
-                                
                                 <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_devis_show', {'id': devis.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_devis_edit', {'id': devis.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form method="post" action="{{ path('app_devis_delete', {'id': devis.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer ce client ?');">
+                                    <form method="post" action="{{ path('app_devis_delete', {'id': devis.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer ce devis ?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ devis.id) }}">
                                         <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
                                     </form>

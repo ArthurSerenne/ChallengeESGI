@@ -133,8 +133,15 @@ class DevisController extends AbstractController
     public function delete(Request $request, Devis $devi, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$devi->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($devi);
+            try {
+                $entityManager->remove($devi);
             $entityManager->flush();
+                $this->addFlash('success', 'Le devis à été supprimé avec succès.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Impossible de supprimer car une facture est reliée à ce devis .');
+            }
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide.');
         }
 
         return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);

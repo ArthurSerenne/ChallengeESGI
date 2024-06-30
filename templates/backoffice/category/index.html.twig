@@ -39,7 +39,7 @@
                                 <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_category_show', {'id': category.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_category_edit', {'id': category.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form method="post" action="{{ path('app_category_delete', {id: category.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer cette catégorie ?');">
+                                    <form method="post" action="{{ path('app_category_delete', {id: category.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette catégorie ?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                                         <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
                                     </form>

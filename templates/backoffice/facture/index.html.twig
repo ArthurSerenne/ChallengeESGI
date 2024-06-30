@@ -15,7 +15,7 @@
                             <th class="p-4 text-left">Id</th>
                             <th class="p-4 text-left">
                                 <a href="{{ path('app_facture_index', {'order': order == 'asc' ? 'desc' : 'asc'}) }}">
-                                    Date
+                                    Date Facture
                                     {% if order == 'asc' %}
                                         <i class="fa-solid fa-arrow-up"></i>
                                     {% else %}
@@ -23,6 +23,9 @@
                                     {% endif %}
                                 </a>
                             </th>
+                            <th class="p-4 text-left">Client</th>
+                            <th class="p-4 text-left">Total TTC</th>
+                            <th class="p-4 text-left">Status</th>
                             <th class="p-4 text-left">Actions</th>
                         </tr>
                     </thead>
@@ -40,7 +43,7 @@
                                 <td class="border-y p-4 text-left flex justify-around">
                                     <a href="{{ path('app_facture_show', {'id': facture.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_facture_edit', {'id': facture.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form method="post" action="{{ path('app_facture_delete', {id: facture.id}) }}" onsubmit="return confirm('Sur de vouloir supprimer cette facture ?');">
+                                    <form method="post" action="{{ path('app_facture_delete', {id: facture.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette facture ?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ facture.id) }}">
                                         <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
                                     </form>
