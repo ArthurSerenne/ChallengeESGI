@@ -32,54 +32,13 @@
                             <span class="text-sm">Dashboard</span>
                         </a>
                     </li>
-                    <li class="mb-1 group relative">
-                        <a href="/dashboard/clients" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-white rounded-md cursor-pointer">
-                            <i class="ri-file-user-line mr-3 text-lg"></i>
-                            <span class="text-sm">Clients</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>        
-                    <li class="mb-1 group">
-                        <a href="/dashboard/produit" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="ri-price-tag-3-line mr-3 text-lg"></i>
-                            <span class="text-sm">Produits</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/category" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-boxes-stacked mr-3 text-lg"></i>
-                            <span class="text-sm">Catégories</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/devis" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
-                            <span class="text-sm">Devis</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/facture" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
-                            <span class="text-sm">Factures</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/salarie" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-users mr-3 text-lg"></i>
-                            <span class="text-sm">Salarié</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-18 group">
-                        <a href="/dashboard/settings" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="ri-settings-2-line mr-3 text-lg"></i>
-                            <span class="text-sm">Settings</span>
-                        </a>
-                    </li>
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/clients", 'icon': "ri-file-user-line mr-3 text-lg", 'label': "Clients"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/produit", 'icon': "ri-price-tag-3-line mr-3 text-lg", 'label': "Produits"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/category", 'icon': "fa-solid fa-boxes-stacked mr-3 text-lg", 'label': "Catégories"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/devis", 'icon': "fa-solid fa-file-invoice mr-3 text-lg", 'label': "Devis"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/facture", 'icon': "fa-solid fa-clipboard mr-3 text-lg", 'label': "Factures"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/salarie", 'icon': "fa-solid fa-users mr-3 text-lg", 'label': "Salarié"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/settings", 'icon': "ri-settings-2-line mr-3 text-lg", 'label': "Paramètres"} %}        
                 </ul>
             </div>
             <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
@@ -130,33 +89,10 @@
                             <span class="text-sm">Dashboard</span>
                         </a>
                     </li>
-                    <li class="mb-18 group">
-                         <a href="/dashboard/clients" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-white rounded-md cursor-pointer">
-                            <i class="ri-file-user-line mr-3 text-lg"></i>
-                            <span class="text-sm">Clients</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/facture" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
-                            <span class="text-sm">Factures</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/rapport" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
-                            <span class="text-sm">Rapport</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-18 group">
-                        <a href="/dashboard/settings" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="ri-settings-2-line mr-3 text-lg"></i>
-                            <span class="text-sm">Settings</span>
-                        </a>
-                    </li>
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/clients", 'icon': "ri-file-user-line mr-3 text-lg", 'label': "Clients"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/facture", 'icon': "fa-solid fa-file-invoice mr-3 text-lg", 'label': "Factures"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/rapport", 'icon': "fa-solid fa-clipboard mr-3 text-lg", 'label': "Rapports"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/settings", 'icon': "ri-settings-2-line mr-3 text-lg", 'label': "Paramètres"} %}
                 </ul>
             </div>
             <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
@@ -207,40 +143,11 @@
                             <span class="text-sm">Dashboard</span>
                         </a>
                     </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/user" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="ri-file-user-line mr-3 text-lg"></i>
-                            <span class="text-sm">Utilisateurs</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/company" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
-                            <span class="text-sm">Entreprises</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/rapport" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
-                            <span class="text-sm">Rapport</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-1 group">
-                        <a href="/dashboard/components" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="fa-solid fa-code mr-3 text-lg"></i>
-                            <span class="text-sm">Composants</span>
-                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
-                        </a>
-                    </li>
-                    <li class="mb-18 group">
-                        <a href="/dashboard/settings" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
-                            <i class="ri-settings-2-line mr-3 text-lg"></i>
-                            <span class="text-sm">Settings</span>
-                        </a>
-                    </li>
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/user", 'icon': "ri-file-user-line", 'label': "Utilisateurs"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/company", 'icon': "fa-solid fa-file-invoice mr-3 text-lg", 'label': "Entreprises"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/rapport", 'icon': "fa-solid fa-clipboard mr-3 text-lg", 'label': "Rapports"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/components", 'icon': "fa-solid fa-code mr-3 text-lg", 'label': "Composants"} %}
+                    {% include 'composants/boutondashboard.html.twig' with {'url': "/dashboard/settings", 'icon': "ri-settings-2-line mr-3 text-lg", 'label': "Paramètres"} %}
                 </ul>
             </div>
             <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
