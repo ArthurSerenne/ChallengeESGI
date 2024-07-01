@@ -24,7 +24,7 @@
                 {% include 'composants/recherche.html.twig' with {'searchTerm': searchTerm ?? ''} %}
                
                 {% if not is_granted('ROLE_COMPTABLE') %}
-                <a href="{{ path('app_clients_create') }}">Ajouter un Client <i class="fa-solid fa-plus"></i></a>
+                {% include 'composants/boutonajout.html.twig' with { 'title': 'Ajouter un Client', 'path': 'app_clients_create'} %}
                 {% endif %}
 
                 <table class="min-w-full border-collapse mt-8">

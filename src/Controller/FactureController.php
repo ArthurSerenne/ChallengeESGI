@@ -25,9 +25,10 @@ class FactureController extends AbstractController
         $company = $user->getCompany();
         $facture = $company->getFacture();
         $theme = $user ? $user->getTheme() : 'original';
+        
 
-        $order = $request->query->get('order', 'asc'); // Default order is ascending
-        $factures = $factureRepository->findBy([], ['date_facture' => $order]);
+        $order = $request->query->get('order', 'asc');
+        $facture = $factureRepository->findBy([], ['date_facture' => $order]);
 
         return $this->render('backoffice/facture/index.html.twig', [
             'factures' => $facture,
