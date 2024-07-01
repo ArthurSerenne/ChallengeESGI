@@ -38,6 +38,39 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    // Méthode pour obtenir le nombre d'utilisateurs par mois pour toutes les entreprises
+    public function getUserCountByMonthForAllCompanies(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "
+            SELECT 
+                DATE_TRUNC('month', u.created_at) AS month,
+                COUNT(u.id) AS user_count
+            FROM 
+                \"user\" u
+            GROUP BY 
+                month
+            ORDER BY 
+                month ASC;
+        ";
+        
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->executeQuery();
+
+        $data = $result->fetchAllAssociative();
+
+        // Initialiser un tableau de 12 mois à 0
+        $totals = array_fill(0, 12, 0);
+
+        foreach ($data as $row) {
+            $monthIndex = (int) (new \DateTime($row['month']))->format('n') - 1; // Index 0 pour janvier, 1 pour février, etc.
+            $totals[$monthIndex] = (int) $row['user_count'];
+        }
+
+        return $totals;
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

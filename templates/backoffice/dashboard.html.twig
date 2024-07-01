@@ -269,7 +269,51 @@
 
             {% if is_granted('ROLE_COMPTABLE') %}
             <div class="p-6 ml-64">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">   
+                    <div class="{% if theme == 'turquoise' %}bg-lightblue-200{% elseif theme == 'grenade' %}bg-darkred-300{% else %}bg-primary-300 dark:bg-primary-400{% endif %} rounded-md p-6 shadow-md shadow-black/5">
+                        <div class="flex justify-between mb-6">
+                            <div>
+                                <div class="text-2xl font-semibold mb-1">{{ factureCount }}</div>
+                                <div class="text-sm font-medium text-gray-600">Factures en cours</div>
+                            </div>
+                        </div>
+                        <a href="dashboard/facture" class="{% if theme == 'turquoise' %}text-lightblue-500{% elseif theme == 'grenade' %}text-darkred-500{% else %}text-primary-500 dark:text-primary-700{% endif %} font-medium text-sm {% if theme == 'turquoise' %} hover:text-lightblue-600{% elseif theme == 'grenade' %}hover:text-darkred-600{% else %}hover:text-primary-600 dark:text-primary-800{% endif %}">Voir plus</a>
+                    </div>
+
+                    <div class="{% if theme == 'turquoise' %}bg-lightblue-200{% elseif theme == 'grenade' %}bg-darkred-300{% else %}bg-primary-300 dark:bg-primary-400{% endif %} rounded-md  p-6 shadow-md shadow-black/5">
+                        <div class="flex justify-between mb-4">
+                            <div>
+                                <div class="flex items-center mb-1">
+                                    <div class="text-2xl font-semibold">{{ clientCount }}</div>
+                                    {# <div class="p-1 rounded bg-darkred-500/10 text-darkred-800 text-[12px] font-semibold leading-none ml-2">+30%</div> #}
+                                </div>
+                                <div class="text-sm font-medium text-gray-600">Clients</div>
+                            </div>
+                        </div>
+                        <a href="dashboard/clients" class="{% if theme == 'turquoise' %}text-lightblue-500{% elseif theme == 'grenade' %}text-darkred-500{% else %}text-primary-500 dark:text-primary-700{% endif %} font-medium text-sm {% if theme == 'turquoise' %} hover:text-lightblue-600{% elseif theme == 'grenade' %}hover:text-darkred-600{% else %}hover:text-primary-600 dark:text-primary-800{% endif %}">Voir plus</a>
+                    </div>
+
+
+
+                    <div class="{% if theme == 'turquoise' %}bg-lightblue-200{% elseif theme == 'grenade' %}bg-darkred-300{% else %}bg-primary-300 dark:bg-primary-400{% endif %} rounded-md p-6 shadow-md shadow-black/5">
+                        <div class="flex justify-between mb-6">
+                            <div>
+                                <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&euro;</span>{{ totalCout }}</div>
+                                <div class="text-sm font-medium text-gray-600">Montant total des factures</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-full bg-gray-100 rounded-full h-4">
+                                <div class="h-full {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500 dark:bg-primary-700{% endif %} rounded-full p-1" style="width: 60%;">
+                                    <div class="w-2 h-2 rounded-full bg-white ml-auto"></div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-medium text-gray-600 ml-4">60%</span>
+                        </div>
+                    </div>
+                </div> 
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     <div class="bg-white dark:bg-[#4E5A63] border border-gray-100 dark:border-[#4E5A63] shadow-md shadow-black/5 p-6 rounded-md">
                         <div class="flex justify-between mb-4 items-start">
                             <div class="font-medium">Factures en cours</div>
@@ -290,6 +334,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                {% for facture in factures %}
+                                    <tr>
+                                        <td class="border-y p-4 text-left">{{ facture.id }}</td>
+                                        <td class="border-y p-4 text-left">{{ facture.dateFacture ? facture.dateFacture|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td class="border-y p-4 text-left">{{ facture.totalTtc }}</td>
+                                        <td class="border-y p-4 text-left">
+                                            <span class="p-1 rounded bg-emerald-500/10 text-emerald-500 font-medium text-[12px] leading-none">{{ facture.StatutPaiement }}</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                             </tbody>
                             </table>
                         </div>
@@ -301,6 +355,57 @@
                         </div>
                         <div>
                             <canvas id="line-chart"></canvas>
+                            <script>
+                                const labels1 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                const dataFromBackend1 = {{ clientCountByMonth|raw }}; // Use raw filter to prevent escaping
+
+                                new Chart(document.getElementById('line-chart'), {
+                                    type: 'line',
+                                    data: {
+                                        labels: labels1,
+                                        datasets: [{
+                                            label: 'Clients par Mois',
+                                            data: dataFromBackend1, // Parse JSON string back to array
+                                            backgroundColor: [
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 159, 64, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 159, 64, 0.2)'
+                                            ],
+                                            borderColor: [
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 206, 86, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 159, 64, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 206, 86, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 159, 64, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -315,6 +420,60 @@
                         </div>
                         <div>
                             <canvas id="bar-chart"></canvas>
+                            <script>
+                                const labels2 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                const dataFromBackend2 = {{ totalCoutByMonth|json_encode|raw }};
+
+                                new Chart(document.getElementById('bar-chart'), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: labels2,
+                                        datasets: [{
+                                            label: 'Total Coût TTC par Mois',
+                                            data: JSON.parse(dataFromBackend2),
+                                            backgroundColor: [
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 159, 64, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 159, 64, 0.2)'
+                                            ],
+                                            borderColor: [
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 206, 86, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 159, 64, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 206, 86, 1)',
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)',
+                                                'rgba(255, 159, 64, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                ticks: {
+                                                    stepSize: 1000
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
 
@@ -325,6 +484,40 @@
                         </div>
                         <div>
                             <canvas id="pie-chart"></canvas>
+                            <script>
+                                const labels3 = ['Factures', 'Devis'];
+                                const dataFromBackend3 = [{{ factureCount }}, {{ devisCount }}];
+
+                                new Chart(document.getElementById('pie-chart'), {
+                                    type: 'pie',
+                                    data: {
+                                        labels: labels3,
+                                        datasets: [{
+                                            label: 'Totaux',
+                                            data: dataFromBackend3,
+                                            backgroundColor: [
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)'
+                                            ],
+                                            borderColor: [
+                                                'rgba(75, 192, 192, 1)',
+                                                'rgba(153, 102, 255, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                ticks: {
+                                                    stepSize: 0.2
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
 
@@ -339,7 +532,8 @@
                     <div class="{% if theme == 'turquoise' %}bg-lightblue-200{% elseif theme == 'grenade' %}bg-darkred-300{% else %}bg-primary-300 dark:bg-primary-400{% endif %} rounded-md p-6 shadow-md shadow-black/5">
                         <div class="flex justify-between mb-6">
                             <div>
-                                <div class="text-sm font-medium text-gray-600">Factures en cours</div>
+                                <div class="text-2xl font-semibold mb-1">{{ userCount }}</div>
+                                <div class="text-sm font-medium text-gray-600">Utilisateurs</div>
                             </div>
                         </div>
                         <a href="dashboard/facture" class="{% if theme == 'turquoise' %}text-lightblue-500{% elseif theme == 'grenade' %}text-darkred-500{% else %}text-primary-500 dark:text-primary-700{% endif %} font-medium text-sm {% if theme == 'turquoise' %} hover:text-lightblue-600{% elseif theme == 'grenade' %}hover:text-darkred-600{% else %}hover:text-primary-600 dark:text-primary-800{% endif %}">Voir plus</a>
@@ -349,9 +543,10 @@
                         <div class="flex justify-between mb-4">
                             <div>
                                 <div class="flex items-center mb-1">
+                                    <div class="text-2xl font-semibold">{{ companyCount }}</div>
                                     {# <div class="p-1 rounded bg-darkred-500/10 text-darkred-800 text-[12px] font-semibold leading-none ml-2">+30%</div> #}
                                 </div>
-                                <div class="text-sm font-medium text-gray-600">Clients</div>
+                                <div class="text-sm font-medium text-gray-600">Entreprises</div>
                             </div>
                         </div>
                         <a href="dashboard/clients" class="{% if theme == 'turquoise' %}text-lightblue-500{% elseif theme == 'grenade' %}text-darkred-500{% else %}text-primary-500 dark:text-primary-700{% endif %} font-medium text-sm {% if theme == 'turquoise' %} hover:text-lightblue-600{% elseif theme == 'grenade' %}hover:text-darkred-600{% else %}hover:text-primary-600 dark:text-primary-800{% endif %}">Voir plus</a>
@@ -362,7 +557,8 @@
                     <div class="{% if theme == 'turquoise' %}bg-lightblue-200{% elseif theme == 'grenade' %}bg-darkred-300{% else %}bg-primary-300 dark:bg-primary-400{% endif %} rounded-md p-6 shadow-md shadow-black/5">
                         <div class="flex justify-between mb-6">
                             <div>
-                                <div class="text-sm font-medium text-gray-600">Montant total des factures</div>
+                                <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&euro;</span>{{ totalAllCompany }}</div>
+                                <div class="text-sm font-medium text-gray-600">Total des transactions</div>
                             </div>
                         </div>
                         <div class="flex items-center">
@@ -374,72 +570,79 @@
                             <span class="text-sm font-medium text-gray-600 ml-4">60%</span>
                         </div>
                     </div>
-                </div>
-
-
-
-
+                </div> 
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                    <div class="bg-white dark:bg-[#4E5A63] border border-gray-100 dark:border-[#4E5A63] shadow-md shadow-black/5 p-6 rounded-md">
-                        <div class="flex justify-between mb-4 items-start">
-                            <div class="font-medium">Factures en cours</div>
-                        </div>
-                        <div class="flex items-center mb-4 order-tab">
-                            <button type="button" data-tab="order" data-tab-page="active" class="bg-gray-50 text-sm font-medium text-gray-400 py-2 px-4 rounded-tl-md rounded-bl-md hover:text-gray-600 active">En cours</button>
-                            <button type="button" data-tab="order" data-tab-page="completed" class="bg-gray-50 text-sm font-medium text-gray-400 py-2 px-4 hover:text-gray-600">Terminées</button>
-                            <button type="button" data-tab="order" data-tab-page="canceled" class="bg-gray-50 text-sm font-medium text-gray-400 py-2 px-4 rounded-tr-md rounded-br-md hover:text-gray-600">Annulées</button>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full min-w-[540px]" data-tab-for="order" data-page="active">
-                                <thead>
-                                    <tr>
-                                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">N°</th>
-                                        <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">Date d'écheance</th>
-                                        <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">Total (€)</th>
-                                        <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tr-md rounded-br-md">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                            </tbody>
-                            </table>
-                        </div>
-                    </div>
-
                     <div class="bg-white dark:bg-[#4E5A63] dark:text-white border border-gray-100 dark:border-[#4E5A63] shadow-md shadow-black/5 p-6 rounded-md">
                         <div class="flex justify-between mb-4 items-start">
-                            <div class="font-medium">Nouveau Client</div>  
+                            <div class="font-medium">Nouveaux utilisateurs</div>
                         </div>
                         <div>
                             <canvas id="line-chart"></canvas>
+                            <script>
+                                const labels10 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                const dataFromBackend10 = {{ userCountByMonth|raw }}; // Use raw filter to prevent escaping
+
+                                new Chart(document.getElementById('line-chart'), {
+                                    type: 'line',
+                                    data: {
+                                        labels: labels10,
+                                        datasets: [{
+                                            label: 'Clients par Mois',
+                                            data: dataFromBackend10, // Parse JSON string back to array
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-
-
-                    <div class="bg-white dark:bg-[#4E5A63] border border-gray-100 dark:border-[#4E5A63] dark:text-white shadow-md shadow-black/5 p-6 rounded-md lg:col-span-2">
+                    <div class="bg-white dark:bg-[#4E5A63] border border-gray-100 dark:border-[#4E5A63] dark:text-white shadow-md shadow-black/5 p-6 rounded-md">
                         <div class="flex justify-between mb-4 items-start">
-                            <div class="font-medium">Montant mensuel</div>          
+                            <div class="font-medium">Total des transactions</div>
                         </div>
                         <div>
                             <canvas id="bar-chart"></canvas>
+                            <script>
+                                const labels20 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                const dataFromBackend20 = {{ totalCoutAllByMonth|json_encode|raw }};
+
+                                new Chart(document.getElementById('bar-chart'), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: labels20,
+                                        datasets: [{
+                                            label: 'Total Coût TTC par Mois',
+                                            data: JSON.parse(dataFromBackend20),
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                ticks: {
+                                                    stepSize: 1000
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
-
-
-                    <div class="bg-white dark:bg-[#4E5A63] border border-gray-100 dark:border-[#4E5A63] shadow-md shadow-black/5 p-6 rounded-md">
-                        <div class="flex justify-between mb-4 items-start">
-                            <div class="font-medium">Devis/Factures</div>
-                        </div>
-                        <div>
-                            <canvas id="pie-chart"></canvas>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
             {% endif %}

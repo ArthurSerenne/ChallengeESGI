@@ -59,6 +59,7 @@ class CreateAdminUserCommand extends Command
         $user->setGender($gender);
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
         $user->setRoles(['ROLE_ADMIN']);
+        $user->setCreatedAt(new \DateTime());
         $user->setVerified(true); // Assuming the admin user should be verified
 
         $this->entityManager->persist($user);

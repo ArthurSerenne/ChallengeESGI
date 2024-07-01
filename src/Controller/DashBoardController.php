@@ -25,7 +25,7 @@ class DashBoardController extends AbstractController
 {
 
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(#[CurrentUser] User $user, EntityManagerInterface $entityManager, FactureRepository $factureRepository, DevisRepository $devisRepository, ClientsRepository $clientsRepository, Security $security): Response
+    public function dashboard(#[CurrentUser] User $user, EntityManagerInterface $entityManager, FactureRepository $factureRepository, DevisRepository $devisRepository, ClientsRepository $clientsRepository, UserRepository $userRepository, Security $security): Response
     {
         $company = $user->getCompany();
         $user = $security->getUser();
@@ -34,10 +34,16 @@ class DashBoardController extends AbstractController
         $factureCount = [];
         $totalCoutByMonth = [];
         $clientCountByMonth = [];
+        $userCount = [];
+        $companyCount = [];
+        $totalAllCompany = [];
+        $totalCoutAllByMonth = [];
+        $userCountByMonth = [];
 
         // Vérifier si l'utilisateur a le rôle de comptable
         $isComptable = in_array('ROLE_COMPTABLE', $user->getRoles());
         $isAdmin = in_array('ROLE_ADMIN', $user->getRoles());
+        $isCompany = in_array('ROLE_Company', $user->getRoles());
 
         if (!$isComptable && !$isAdmin) {
             // Récupérer les factures pour l'entreprise
@@ -58,6 +64,30 @@ class DashBoardController extends AbstractController
 
             // Récupérer le nombre de devis
             $devisCount = $devisRepository->countByCompany($company);
+
+        } elseif (!$isComptable && !$isCompany) {
+            // Actions pour les utilisateurs qui ne sont ni entreprise ni comptable
+            $facture = [];
+            $factureCount = 0;
+            $totalCout = 0.0;
+            $clientCount = 0;
+            $devisCount = 0;
+
+            // Récupérer le nombre de clients
+            $userCount = $entityManager->getRepository(User::class)->count([]);
+
+            // Récupérer le nombre d'entreprise
+            $companyCount = $entityManager->getRepository(Company::class)->count([]);
+
+            // Récupérer le total TTC des factures de toutes les entreprises
+            $totalAllCompany = $factureRepository->getTotalTTCForAllCompanies();
+
+            // total de nouveaux utilisateurs par mois
+            $userCountByMonth = $userRepository->getUserCountByMonthForAllCompanies();
+
+            // total des transactions par mois
+            $totalCoutAllByMonth = $factureRepository->getTotalCoutByMonthForAllCompanies();
+
         } else {
             $facture = [];
             $factureCount = 0;
@@ -77,6 +107,11 @@ class DashBoardController extends AbstractController
             'totalCout' => $totalCout,
             'factureCount' => $factureCount,
             'devisCount' => $devisCount,
+            'userCount' => $userCount,
+            'companyCount' => $companyCount,
+            'totalAllCompany' => $totalAllCompany,
+            'userCountByMonth' => json_encode($userCountByMonth),
+            'totalCoutAllByMonth' => json_encode($totalCoutAllByMonth),
         ]);
     }
 
