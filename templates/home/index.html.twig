@@ -18,7 +18,9 @@
         <div class="mx-auto flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 p-8 flex flex-col items-center ml-24 mt-56">
                 {% include 'composants/titre.html.twig' with { 'title': 'GymVoice', 'additional_classes': 'text-orange-500 text-8xl font-bold mb-10' } %}
-                <button class="m-6 px-9 py-5 bg-black text-white rounded-lg hover:bg-primary-600 focus:outline-none transform scale-150">Créer un compte</button>
+                <a href="/register">
+                    <button class="m-6 px-9 py-5 bg-black text-white rounded-lg hover:bg-primary-600 focus:outline-none transform scale-150">Créer un compte</button>
+                </a>
                 <p class="px-56 mt-4 text-center">Créez, envoyez et gérez vos devis et factures en ligne facilement avec GymVoice. GymVoice est le meilleur logiciel de facturation adapté aux entrepreneurs et aux petites entreprises de matériels de sport.</p>
             </div>
             <div class="w-full md:w-1/2 p-8l mt-20 ml-0">

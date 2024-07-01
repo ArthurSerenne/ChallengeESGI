@@ -34,6 +34,16 @@ security:
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/register$, roles: PUBLIC_ACCESS }
         - { path: ^/redirect, roles: ROLE_USER }
+        - { path: ^/dashboard/components, roles: ROLE_ADMIN }
+        - { path: ^/dashboard/company, roles: [ROLE_COMPANY, ROLE_ADMIN] }
+        - { path: ^/dashboard/user, roles: ROLE_ADMIN }
+        - { path: ^/dashboard/clients, roles: ROLE_COMPANY }
+        - { path: ^/dashboard/produit, roles: ROLE_COMPANY }
+        - { path: ^/dashboard/category, roles: ROLE_COMPANY }
+        - { path: ^/dashboard/devis, roles: ROLE_COMPANY }
+        - { path: ^/dashboard/facture, roles: ROLE_COMPANY }
+        - { path: ^/dashboard/salarie, roles: ROLE_COMPANY }
+        - { path: ^/dashboard/construction, roles: [ROLE_COMPTABLE, ROLE_ADMIN] }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/dashboard, roles: [ROLE_COMPANY, ROLE_COMPTABLE, ROLE_ADMIN] } 
         - { path: ^/, roles: PUBLIC_ACCESS }

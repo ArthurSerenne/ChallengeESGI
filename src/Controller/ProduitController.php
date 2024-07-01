@@ -34,7 +34,7 @@ class ProduitController extends AbstractController
     }
 
     return $this->render('backoffice/produit/index.html.twig', [
-        'produits' => $produits,
+        'produitss' => $produits,
         'produits' => $produit,
         'company' => $company,
         'theme' => $theme,

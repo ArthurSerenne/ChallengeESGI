@@ -44,10 +44,14 @@
                                 <td class="border-y  p-4 text-left flex justify-around">
                                     <a href="{{ path('app_user_view', {id: user.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_user_edit', {id: user.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form method="post" action="{{ path('app_user_delete', {id: user.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet utilisateur ?');">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                                        <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
-                                    </form>
+                                    {% if app.user.id != user.id %}
+                                        <form method="post" action="{{ path('app_user_delete', {id: user.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet utilisateur ?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                            <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
+                                        </form>
+                                    {% else %}
+                                        <span class="text-gray-500"></span>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

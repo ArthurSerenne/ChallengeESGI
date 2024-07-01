@@ -34,6 +34,26 @@
                         </h1>
                     </div>
                 </div>
+
+                <div class="w-full bg-gray-50 rounded-md border border-gray-200 p-4 mb-4">
+                    <div class="flex justify-center">
+                        <a href="" class="text-white font-bold py-2 px-4 rounded inline-flex items-center {% if theme == 'turquoise' %}bg-lightblue-500 hover:bg-lightblue-700 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}bg-darkred-500 hover:bg-darkred-700 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}bg-primary-500 hover:bg-primary-700 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            titre <i class="fa-solid fa-plus ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full bg-gray-50 rounded-md border border-gray-200 p-4 mb-4">
+                    <div class="flex justify-center">
+                        <li class="mb-1 group">
+                        <a href="" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                            <i class="mr-3 text-lg"></i>
+                            <span class="text-sm">Titre</span>
+                            <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
+                        </a>
+                    </li>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

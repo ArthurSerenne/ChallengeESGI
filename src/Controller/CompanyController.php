@@ -85,7 +85,7 @@ class CompanyController extends AbstractController
             $entityManager->persist($company);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_company');
+            return $this->redirectToRoute('app_dashboard');
         }
 
         return $this->render('backoffice/company/edit.html.twig', [
@@ -147,10 +147,6 @@ class CompanyController extends AbstractController
             $comptable->setRoles(['ROLE_COMPTABLE']);
             $password = $passwordHasher->hashPassword($comptable, $comptable->getPassword());
             $comptable->setPassword($password);
-
-            // Link the company to the new comptable user
-            $comptable->addCompany($company);
-            $company->addUser($comptable);
 
             $em->persist($comptable);
             $em->flush();

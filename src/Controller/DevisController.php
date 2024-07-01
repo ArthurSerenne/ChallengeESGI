@@ -22,10 +22,11 @@ class DevisController extends AbstractController
         $theme = $user ? $user->getTheme() : 'original';
 
         $order = $request->query->get('order', 'asc'); 
-        $devis = $devisRepository->findBy([], ['date_devis' => $order]);
+        $devi = $devisRepository->findBy([], ['date_devis' => $order]);
 
         return $this->render('backoffice/devis/index.html.twig', [
             'devis' => $devis,
+            'devi' => $devi,
             'theme' => $theme,
             'company' => $company,
             'order' => $order,
