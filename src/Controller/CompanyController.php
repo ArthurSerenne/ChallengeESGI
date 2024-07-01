@@ -11,12 +11,28 @@ use App\Entity\Company;
 use App\Form\ComptableType;
 use App\Entity\User;
 use App\Form\CompanyFormType;
+use App\Repository\CompanyRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Repository\UserRepository;
 
 class CompanyController extends AbstractController
 {
-    #[Route('/company/create', name: 'app_company')]
+
+    #[Route('/dashboard/company', name: 'app_company')]
+    public function index(CompanyRepository $companyRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+    
+        return $this->render('backoffice/company/index.html.twig', [
+            'companys' => $companyRepository->findAll(),
+            'company' => $company,
+            'theme' => $theme,
+        ]);
+    }
+
+    #[Route('/company/create', name: 'app_company_create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -52,7 +68,7 @@ class CompanyController extends AbstractController
     }
 
 
-    #[Route('dashboard/company/{id}/edit', name: 'company_edit')]
+    #[Route('dashboard/company/{id}/edit', name: 'app_company_edit')]
     public function edit(Request $request, Company $company, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -75,6 +91,38 @@ class CompanyController extends AbstractController
             'company' => $company,
             'theme' => $theme,
         ]);
+    }
+
+    #[Route('dashboard/company/{id}', name: 'app_company_view')]
+    public function view(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $theme = $user ? $user->getTheme() : 'original';
+
+
+        return $this->render('backoffice/company/view.html.twig', [
+            'company' => $company,
+            'theme' => $theme,
+        ]);
+    }
+
+    #[Route('dashboard/company/{id}/delete', name: 'app_company_delete', methods: ['POST'])]
+    public function delete(int $id, EntityManagerInterface $entityManager, Request $request, Company $company): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$company->getId(), $request->request->get('_token'))) {
+            try {
+                $entityManager->remove($company);
+                $entityManager->flush();
+                $this->addFlash('success', 'L entreprise a été supprimée avec succès.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Impossible de supprimer cette entreprise.');
+            }
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide.');
+        }
+
+        return $this->redirectToRoute('app_company');
     }
 
     #[Route('/dashboard/salarie', name: 'app_salarie')]

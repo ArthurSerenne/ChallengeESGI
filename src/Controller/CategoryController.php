@@ -35,6 +35,7 @@ class CategoryController extends AbstractController
 
         return $this->render('backoffice/category/index.html.twig', [
             'categories' => $categories,
+            'categories' => $category,
             'company' => $company,
             'theme' => $theme,
             'searchTerm' => $searchTerm,

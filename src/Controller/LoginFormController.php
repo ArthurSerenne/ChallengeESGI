@@ -38,7 +38,7 @@ class LoginFormController extends AbstractController
         }
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_admin');
+            return $this->redirectToRoute('app_dashboard');
         }
 
         if ($this->isGranted('ROLE_COMPTABLE')) {
@@ -49,7 +49,7 @@ class LoginFormController extends AbstractController
             return $this->redirectToRoute('app_dashboard');
         }
 
-        return $this->redirectToRoute('app_company');
+        return $this->redirectToRoute('app_company_create');
     }
 
     #[Route(path: '/logout', name: 'app_logout')]

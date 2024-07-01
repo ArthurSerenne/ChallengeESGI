@@ -28,20 +28,34 @@ class DashBoardController extends AbstractController
     {
         $company = $user->getCompany();
         $user = $security->getUser();
-        $facture = $company->getFacture();
         $theme = $user ? $user->getTheme() : 'principal';
 
-        // Récupérer le nombre de clients
-        $clientCount = $entityManager->getRepository(Clients::class)->count(['company' => $company]);
+        // Vérifier si l'utilisateur a le rôle de comptable
+        $isComptable = in_array('ROLE_COMPTABLE', $user->getRoles());
+        $isAdmin = in_array('ROLE_ADMIN', $user->getRoles());
 
-        // Récupérer le nombre de factures pour l'entreprise
-        $factureCount = $factureRepository->countByCompany($company);
+        if (!$isComptable && !$isAdmin) {
+            // Récupérer les factures pour l'entreprise
+            $facture = $company->getFacture();
 
-        // Récupérer le nombre de devis
-        $devisCount = $devisRepository->count([]);
+            // Récupérer le total TTC des factures pour l'entreprise
+            $totalCout = $factureRepository->getTotalTTCByCompany($company);
 
-         // Récupérer le total TTC des factures pour l'entreprise
-         $totalCout = $factureRepository->getTotalTTCByCompany($company);
+            // Récupérer le nombre de clients
+            $clientCount = $entityManager->getRepository(Clients::class)->count(['company' => $company]);
+
+            // Récupérer le nombre de factures pour l'entreprise
+            $factureCount = $factureRepository->countByCompany($company);
+
+            // Récupérer le nombre de devis
+            $devisCount = $devisRepository->count([]);
+        } else {
+            $facture = [];
+            $factureCount = 0;
+            $totalCout = 0.0;
+            $clientCount = 0;
+            $devisCount = 0;
+        }
 
         return $this->render('backoffice/dashboard.html.twig', [
             'factures' => $facture,
@@ -55,23 +69,23 @@ class DashBoardController extends AbstractController
         ]);
     }
 
-    #[Route('/admin', name: 'app_admin')]
-    public function admin(#[CurrentUser] User $user, EntityManagerInterface $entityManager, Security $security): Response
-    {
-        $company = $user->getCompany();
-        $user = $security->getUser();
-        $theme = $user ? $user->getTheme() : 'principal';
+    // #[Route('/admin', name: 'app_admin')]
+    // public function admin(#[CurrentUser] User $user, EntityManagerInterface $entityManager, Security $security): Response
+    // {
+    //     $company = $user->getCompany();
+    //     $user = $security->getUser();
+    //     $theme = $user ? $user->getTheme() : 'principal';
 
-        // Récupérer le nombre de clients
-        $clientCount = $entityManager->getRepository(Clients::class)->count(['company' => $company]);
+    //     // Récupérer le nombre de user
+    //     $clientCount = $entityManager->getRepository(Clients::class)->count(['company' => $company]);
 
-        return $this->render('backoffice/admin/admin.html.twig', [
-            'company' => $company,
-            'user' => $user,
-            'theme' => $theme,
-            'clientCount' => $clientCount,
-        ]);
-    }
+    //     return $this->render('backoffice/admin/admin.html.twig', [
+    //         'company' => $company,
+    //         'user' => $user,
+    //         'theme' => $theme,
+    //         'clientCount' => $clientCount,
+    //     ]);
+    // }
 
     #[Route('/dashboard/components', name: 'app_component')]
     public function component(#[CurrentUser] User $user, EntityManagerInterface $entityManager, Security $security): Response
