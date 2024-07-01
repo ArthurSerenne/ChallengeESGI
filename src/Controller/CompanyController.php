@@ -69,21 +69,23 @@ class CompanyController extends AbstractController
 
 
     #[Route('dashboard/company/{id}/edit', name: 'app_company_edit')]
-    public function edit(Request $request, Company $company, EntityManagerInterface $em): Response
+    public function edit(int $id, Request $request, Company $company, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $company = $user->getCompany();
         $theme = $user ? $user->getTheme() : 'original';
+
+        $company = $entityManager->getRepository(Company::class)->find($id);
 
         $form = $this->createForm(CompanyFormType::class, $company);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($company);
-            $em->flush();
+            $entityManager->persist($company);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('app_dashboard');
+            return $this->redirectToRoute('app_company');
         }
 
         return $this->render('backoffice/company/edit.html.twig', [
@@ -100,6 +102,7 @@ class CompanyController extends AbstractController
         $company = $user->getCompany();
         $theme = $user ? $user->getTheme() : 'original';
 
+        $company = $entityManager->getRepository(Company::class)->find($id);
 
         return $this->render('backoffice/company/view.html.twig', [
             'company' => $company,
@@ -135,6 +138,7 @@ class CompanyController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_COMPANY');
 
         $comptable = new User();
+        $comptable->setCreatedAt(new \DateTime());
         $form = $this->createForm(ComptableType::class, $comptable);
 
         $form->handleRequest($request);
@@ -143,6 +147,10 @@ class CompanyController extends AbstractController
             $comptable->setRoles(['ROLE_COMPTABLE']);
             $password = $passwordHasher->hashPassword($comptable, $comptable->getPassword());
             $comptable->setPassword($password);
+
+            // Link the company to the new comptable user
+            $comptable->addCompany($company);
+            $company->addUser($comptable);
 
             $em->persist($comptable);
             $em->flush();

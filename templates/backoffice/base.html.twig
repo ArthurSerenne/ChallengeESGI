@@ -119,9 +119,9 @@
             {% if is_granted('ROLE_COMPTABLE') %}
             <!-- start: Sidebar -->
             <div class="fixed left-0 top-0 w-64 h-full {% if theme == 'turquoise' %}bg-lightblue-600 dark:bg-[#262C30]{% elseif theme == 'grenade' %}bg-darkred-600 dark:bg-[#262C30]{% else %}bg-primary-600 dark:bg-[#262C30]{% endif %} p-4 z-50 sidebar-menu transition-transform">
-                <a href="#" class="flex items-center pb-4 border-b border-b-slate-200">
+                <a href="" class="flex items-center pb-4 border-b border-b-slate-200">
                     <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover">
-                    <span class="text-lg font-bold text-white ml-3">Gym-voice</span>
+                    <span class="text-lg font-bold text-white ml-3">Comptabilité</span>
                 </a>
                 <ul class=" flex flex-col mt-4 h-full">
                     <li class="mb-1 group active">
@@ -131,21 +131,21 @@
                         </a>
                     </li>
                     <li class="mb-18 group">
-                         <a href="/dashboard/clients" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-white rounded-md cursor-pointer">
+                         <a href="/dashboard/construction" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-white rounded-md cursor-pointer">
                             <i class="ri-file-user-line mr-3 text-lg"></i>
                             <span class="text-sm">Clients</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
                     </li>
                     <li class="mb-1 group">
-                        <a href="/dashboard/facture" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                        <a href="/dashboard/construction" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="fa-solid fa-file-invoice mr-3 text-lg"></i>
                             <span class="text-sm">Factures</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
                         </a>
                     </li>
                     <li class="mb-1 group">
-                        <a href="/dashboard/rapport" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                        <a href="/dashboard/construction" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
                             <span class="text-sm">Rapport</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
@@ -222,7 +222,7 @@
                         </a>
                     </li>
                     <li class="mb-1 group">
-                        <a href="/dashboard/rapport" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
+                        <a href="/dashboard/construction" class="flex items-center py-2 px-4 text-gray-300 {% if theme == 'turquoise' %}hover:bg-lightblue-500 group-hover:bg-lightblue-800 focus:bg-lightblue-800{% elseif theme == 'grenade' %}hover:bg-darkred-500 group-hover:bg-darkred-800 focus:bg-darkred-800{% else %}hover:bg-primary-500 group-hover:bg-primary-800 focus:bg-primary-800{% endif %} hover:text-gray-100 rounded-md cursor-pointer">
                             <i class="fa-solid fa-clipboard mr-3 text-lg"></i>
                             <span class="text-sm">Rapport</span>
                             <i class="ri-arrow-right-s-line ml-auto transform group-hover:rotate-90 transition-transform duration-300"></i>
