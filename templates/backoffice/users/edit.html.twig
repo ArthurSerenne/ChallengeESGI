@@ -1,0 +1,54 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-10 text-3xl font-bold">Modifier un utilisateur</h1>
+
+                {{ form_start(userForm) }}
+                <div class="col-span-1">
+                    {{ form_label(userForm.firstname, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(userForm.firstname, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(userForm.firstname, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(userForm.lastname, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(userForm.lastname, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(userForm.lastname, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(userForm.email, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(userForm.email, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(userForm.email, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(userForm.gender, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(userForm.gender, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(userForm.gender, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(userForm.theme, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(userForm.theme, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(userForm.theme, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div class="col-span-1">
+                    {{ form_label(userForm.created_at, null, {'class': 'block text-sm font-medium text-gray-700'}) }}
+                    {{ form_widget(userForm.created_at, {'attr': {'class': 'w-full h-12 rounded bg-gray-200 opacity-75 border-b-2 border-gray-600 focus:outline-none p-2 mb-4'}}) }}
+                    {{ form_errors(userForm.created_at, {'attr': {'class': 'text-red-600 text-sm'}}) }}
+                </div>
+                <div>
+                    <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}bg-lightblue-700{% elseif theme == 'grenade' %}bg-darkred-700{% else %}bg-primary-700{% endif %} text-white font-bold py-2 px-4" type="submit">
+                        Enregistrer
+                    </button>
+                </div>
+                {{ form_end(userForm) }}
+
+                <a href="{{ path('app_user') }}">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

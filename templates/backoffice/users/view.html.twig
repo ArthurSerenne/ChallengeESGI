@@ -1,0 +1,23 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <div class="p-6">
+        <div class="mb-6 pl-64">
+            <div class="w-full bg-white rounded-md border border-gray-100 p-4 shadow-md shadow-black/5">
+                <h1 class="pb-4 text-4xl font-bold mb-6">Utilisateur : {{ user.firstname }} {{ user.lastname }}</h1>
+                <p class="p-4 font-bold">Nom: {{ user.firstname }}</p>
+                <p class="p-4 font-bold">Prénom: {{ user.lastname }}</p>
+                <p class="p-4 font-bold">Email: {{ user.email }}</p>
+                <p class="p-4 font-bold">Genre: {{ user.gender }}</p>
+                <p class="p-4 font-bold">Thème: {{ user.theme }}</p>
+                <a class="" href="{{ path('app_user') }}">
+                    <button class="w-full h-14 rounded {% if theme == 'turquoise' %}bg-lightblue-500{% elseif theme == 'grenade' %}bg-darkred-500{% else %}bg-primary-500{% endif %} {% if theme == 'turquoise' %}hover:bg-lightblue-700{% elseif theme == 'grenade' %}hover:bg-darkred-700{% else %}hover:bg-primary-700{% endif %} text-white font-bold py-2 px-4">
+                        Retour à la liste
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
