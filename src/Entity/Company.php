@@ -6,6 +6,7 @@ use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company
@@ -18,8 +19,11 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $Name = null;
 
-    #[ORM\Column]
-    private ?int $Siret = null;
+    #[ORM\Column(length: 14)]
+    #[Assert\NotBlank]
+    #[Assert\Length(exactly: 14)]
+    #[Assert\Regex(pattern: '/^\d{14}$/', message: 'The Siret number must contain exactly 14 digits.')]
+    private ?string $Siret = null;
 
     #[ORM\OneToOne(inversedBy: 'company', cascade: ['persist', 'remove'])]
     private ?User $user_id = null;
@@ -80,12 +84,12 @@ class Company
         return $this;
     }
 
-    public function getSiret(): ?int
+    public function getSiret(): ?string
     {
         return $this->Siret;
     }
 
-    public function setSiret(int $Siret): static
+    public function setSiret(string $Siret): static
     {
         $this->Siret = $Siret;
 

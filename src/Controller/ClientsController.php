@@ -144,19 +144,6 @@ class ClientsController extends AbstractController
     #[Route('dashboard/clients/{id}/delete', name: 'app_clients_delete', methods: ['POST'])]
     public function delete(int $id, EntityManagerInterface $entityManager, Request $request, Clients $client): Response
     {
-        // $user = $this->getUser();
-        // $company = $user->getCompany();
-        // $theme = $user ? $user->getTheme() : 'original';
-        
-        // $client = $entityManager->getRepository(Clients::class)->find($id);
-
-        // if (!$client) {
-        //     throw $this->createNotFoundException('Aucun client trouvé !!');
-        // }
-
-        // $entityManager->remove($client);
-        // $entityManager->flush();
-
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
             try {
                 $entityManager->remove($client);
