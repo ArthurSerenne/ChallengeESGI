@@ -21,6 +21,41 @@ class ClientsRepository extends ServiceEntityRepository
         parent::__construct($registry, Clients::class);
     }
 
+    public function getClientCountByCompanyAndMonth($company)
+{
+    $conn = $this->getEntityManager()->getConnection();
+
+    $sql = "
+        SELECT 
+            DATE_TRUNC('month', c.created_at) AS month,
+            COUNT(c.id) AS client_count
+        FROM 
+            clients c
+        WHERE 
+            c.company_id = :company_id
+        GROUP BY 
+            month
+        ORDER BY 
+            month ASC;
+    ";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue('company_id', $company->getId());
+    $result = $stmt->executeQuery();
+
+    $data = $result->fetchAllAssociative();
+
+    // Initialiser un tableau de 12 mois à 0
+    $totals = array_fill(0, 12, 0);
+
+    foreach ($data as $row) {
+        $monthIndex = (int) (new \DateTime($row['month']))->format('n') - 1; // Index 0 pour janvier, 1 pour février, etc.
+        $totals[$monthIndex] = (int) $row['client_count'];
+    }
+
+    return $totals;
+}
+
     //    /**
     //     * @return Clients[] Returns an array of Clients objects
     //     */

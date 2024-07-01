@@ -27,6 +27,41 @@ class FactureRepository extends ServiceEntityRepository
              ->getQuery()
              ->getSingleScalarResult();
      }
+
+     public function getTotalCoutByCompanyAndMonth($company)
+     {
+         $conn = $this->getEntityManager()->getConnection();
+     
+         $sql = "
+             SELECT 
+                 DATE_TRUNC('month', f.date_facture) AS month,
+                 SUM(f.total_ttc) AS total_amount
+             FROM 
+                 facture f
+             WHERE 
+                 f.company_id = :company_id
+             GROUP BY 
+                 month
+             ORDER BY 
+                 month ASC
+         ";
+         
+         $stmt = $conn->prepare($sql);
+        $stmt->bindValue('company_id', $company->getId());
+        $result = $stmt->executeQuery();
+
+        $data = $result->fetchAllAssociative();
+
+        // Initialiser un tableau de 12 mois à 0
+        $totals = array_fill(0, 12, 0);
+
+        foreach ($data as $row) {
+            $monthIndex = (int) date('n', strtotime($row['month'])) - 1; // Index 0 pour janvier, 1 pour février, etc.
+            $totals[$monthIndex] = (float) $row['total_amount'];
+        }
+
+        return $totals;
+     }
      
     //    /**
     //     * @return Facture[] Returns an array of Facture objects

@@ -30,6 +30,10 @@ class DashBoardController extends AbstractController
         $user = $security->getUser();
         $theme = $user ? $user->getTheme() : 'principal';
 
+        $factureCount = [];
+        $totalCoutByMonth = [];
+        $clientCountByMonth = [];
+
         // Vérifier si l'utilisateur a le rôle de comptable
         $isComptable = in_array('ROLE_COMPTABLE', $user->getRoles());
         $isAdmin = in_array('ROLE_ADMIN', $user->getRoles());
@@ -37,6 +41,10 @@ class DashBoardController extends AbstractController
         if (!$isComptable && !$isAdmin) {
             // Récupérer les factures pour l'entreprise
             $facture = $company->getFacture();
+
+            $clientCountByMonth = $clientsRepository->getClientCountByCompanyAndMonth($company);
+
+            $totalCoutByMonth = $factureRepository->getTotalCoutByCompanyAndMonth($company);
 
             // Récupérer le total TTC des factures pour l'entreprise
             $totalCout = $factureRepository->getTotalTTCByCompany($company);
@@ -63,6 +71,8 @@ class DashBoardController extends AbstractController
             'user' => $user,
             'theme' => $theme,
             'clientCount' => $clientCount,
+            'clientCountByMonth' => json_encode($clientCountByMonth),
+            'totalCoutByMonth' => json_encode($totalCoutByMonth),
             'totalCout' => $totalCout,
             'factureCount' => $factureCount,
             'devisCount' => $devisCount,
