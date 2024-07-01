@@ -42,11 +42,11 @@
                     <tbody>
                         {% for client in clients %}
                             <tr>
-                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.name }}</td>
-                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.lastname }}</td>
-                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.email }}</td>
-                                <td class="border-y dark:border-y-black p-4 text-left">{{ client.phone }}</td>
-                                <td class="border-y dark:border-y-black p-4 text-left flex justify-around">
+                                <td class="border-y  p-4 text-left">{{ client.name }}</td>
+                                <td class="border-y  p-4 text-left">{{ client.lastname }}</td>
+                                <td class="border-y  p-4 text-left">{{ client.email }}</td>
+                                <td class="border-y  p-4 text-left">{{ client.phone }}</td>
+                                <td class="border-y  p-4 text-left flex justify-around">
                                     <a href="{{ path('app_clients_view', {id: client.id}) }}"><i class="fa-solid fa-eye"></i></a>
                                     <a href="{{ path('app_clients_edit', {id: client.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <form method="post" action="{{ path('app_clients_delete', {id: client.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer ce client ?');">
