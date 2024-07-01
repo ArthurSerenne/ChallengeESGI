@@ -52,7 +52,7 @@ class DevisController extends AbstractController
             $totalHT = 0;
             $totalTTC = 0;
             $tvaRate = 0.20; // 20% VAT rate
-            $remiseRate = 0.15; // 15% discount rate for totals over 1000€
+            $remiseRate = 0.10; // 15% discount rate for totals over 5000€
 
             foreach ($devis->getLignesDevis() as $ligne) {
                 $totalHT += $ligne->getPrixHT();
@@ -65,7 +65,7 @@ class DevisController extends AbstractController
 
             // Calculer la remise
             $remise = 0;
-            if ($totalHT > 1000) {
+            if ($totalHT > 5000) {
                 $remise = $totalHT * $remiseRate;
             }
  

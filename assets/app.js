@@ -62,7 +62,7 @@ themeToggle.addEventListener('click', function() {
 // Ajout des lignes de devis
 
 const tvaRate = 0.20; // 20% 
-const remiseRate = 0.15; // 15% à partir de 1000€
+const remiseRate = 0.10; // 10% à partir de 5000€
 
 function updateDevisTotals() {
     let totalHT = 0;
@@ -83,7 +83,7 @@ function updateDevisTotals() {
     const totalTVA = totalTTC - (totalHT);
 
     let remise = 0;
-    if (totalHT > 1000) {
+    if (totalHT > 5000) {
         remise = totalHT * remiseRate;
         totalTTC -= remise;
     }

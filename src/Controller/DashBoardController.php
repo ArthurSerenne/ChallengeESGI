@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\SettingsFormType;
 use App\Entity\Company;
 use Symfony\Component\HttpFoundation\Request;
+use App\Service\EmailsTemplateSenderService;
 use App\Entity\Clients;
 use App\Entity\Facture;
 use App\Entity\User;
@@ -56,7 +57,7 @@ class DashBoardController extends AbstractController
             $factureCount = $factureRepository->countByCompany($company);
 
             // Récupérer le nombre de devis
-            $devisCount = $devisRepository->count([]);
+            $devisCount = $devisRepository->countByCompany($company);
         } else {
             $facture = [];
             $factureCount = 0;
